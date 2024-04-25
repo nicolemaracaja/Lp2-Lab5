@@ -9,6 +9,11 @@ public class UsuarioController {
 	
 	public UsuarioController() {
 		this.estudantes = new ArrayList<>();
+		this.admin = new Admin("admin", "00000000000", 00000000);
+	}
+			
+	public Admin getAdmin() {
+		return admin;
 	}
 	
 	/**
@@ -36,7 +41,7 @@ public class UsuarioController {
      * @return Array de strings com informações dos estudantes, ou null se a autenticação falhar.
      */
     public String[] exibirEstudantes(String cpfAdmin, int senhaAdmin) {
-        if (admin == null || !admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
+        if (!admin.cpf.equals(cpfAdmin) && !admin.autenticar(senhaAdmin)) {
             return null; // Não autenticado
         }
 
@@ -100,7 +105,7 @@ public class UsuarioController {
      * @return true se a configuração foi bem sucedida, se não, false.
      */
     public boolean configurarNovoADMIN(String cpfAdmin, int senhaAtual, String nomeNovo, String cpfNovo, int senhaNova) {
-        if (admin == null || (admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual))) {
+        if ((admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual))) {
             admin = new Admin(nomeNovo, cpfNovo, senhaNova); // Configurar ou reconfigurar ADMIN
             return true;
         }
@@ -124,4 +129,3 @@ public class UsuarioController {
 }
 	
    
-
