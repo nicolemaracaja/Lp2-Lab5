@@ -1,10 +1,11 @@
 package br.edu.ufcg.computacao.complementaccc;
 
 public class ComplementaCCCFacade {
-	//declarar controladores
+	
+	private ComplementaCCCController cont;
 	
 	boolean criarEstudante(String nome, String cpf, int senha, String matricula) {
-		return true;
+		return cont.criarEstudante(nome, cpf, senha, matricula);
 	}
 	String[] exibirEstudantes(String cpf, int senha){
 		//ADMIN
