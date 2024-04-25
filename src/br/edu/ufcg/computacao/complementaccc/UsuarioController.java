@@ -11,6 +11,14 @@ public class UsuarioController {
 		this.estudantes = new ArrayList<>();
 	}
 	
+	/**
+     * Cria um estudante com base em seu nome, seu cpf, sua senha e sua matrícula.
+     * @param nome Nome do estudante.
+     * @param cpf CPF do estudante.
+     * @param senha Senha do estudante.
+     * @param matricula Matrícula do estudante.
+     * @return true se a alteração foi bem sucedida, se não, false.
+     */
 	public boolean criarEstudante(String nome, String cpf, int senha, String matricula) {
         for (Estudante estudante : estudantes) {
             if (estudante.cpf.equals(cpf)) {
@@ -21,6 +29,12 @@ public class UsuarioController {
         return true;
     }
 
+	 /**
+     * Exibe todos os estudantes se autenticado com admin.
+     * @param cpfAdmin CPF do admin.
+     * @param senhaAdmin Senha do admin.
+     * @return Array de strings com informações dos estudantes, ou null se a autenticação falhar.
+     */
     public String[] exibirEstudantes(String cpfAdmin, int senhaAdmin) {
         if (admin == null || !admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
             return null; // Não autenticado
@@ -34,18 +48,26 @@ public class UsuarioController {
         return resultado;
     }
 
+    /**
+     * Altera dados de um estudante.
+     * @param cpf CPF do estudante.
+     * @param senha Senha do estudante.
+     * @param tipoAlteracao Tipo de alteração ("nome", "matricula", "senha").
+     * @param novoValor Novo valor para a alteração.
+     * @return true se a alteração foi bem-sucedida, se não, false.
+     */
     public boolean alterarEstudante(String cpf, int senha, String tipoAlteracao, String novoValor) {
         for (Estudante estudante : estudantes) {
             if (estudante.cpf.equals(cpf) && estudante.autenticar(senha)) {
                 switch (tipoAlteracao.toLowerCase()) {
                     case "nome":
-                        estudante.nome = novoValor;
+                        estudante.setNome(novoValor);
                         return true;
                     case "matricula":
-                        estudante.matricula = novoValor;
+                        estudante.setMatricula(novoValor);
                         return true;
                     case "senha":
-                        estudante.senha = Integer.parseInt(novoValor);
+                        estudante.setSenha(Integer.parseInt(novoValor));
                         return true;
                     default:
                         return false;
@@ -55,6 +77,12 @@ public class UsuarioController {
         return false; // Estudante não encontrado ou senha incorreta
     }
 
+    /**
+     * Exibe informações do admin se autenticado.
+     * @param cpfAdmin CPF do admin.
+     * @param senhaAdmin Senha do admin.
+     * @return String com informações do admin, ou null se a autenticação falhar.
+     */
     public String exibirAdmin(String cpfAdmin, int senhaAdmin) {
         if (admin == null || !admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
             return null; // Não autenticado
@@ -62,6 +90,15 @@ public class UsuarioController {
         return admin.toString();
     }
 
+    /**
+     * Configura ou reconfigura o admin com autenticação.
+     * @param cpfAdmin CPF do admin.
+     * @param senhaAtual Senha atual do admin.
+     * @param nomeNovo Novo nome do admin.
+     * @param cpfNovo Novo CPF do admin.
+     * @param senhaNova Nova senha do admin.
+     * @return true se a configuração foi bem sucedida, se não, false.
+     */
     public boolean configurarNovoADMIN(String cpfAdmin, int senhaAtual, String nomeNovo, String cpfNovo, int senhaNova) {
         if (admin == null || (admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual))) {
             admin = new Admin(nomeNovo, cpfNovo, senhaNova); // Configurar ou reconfigurar ADMIN
@@ -70,6 +107,13 @@ public class UsuarioController {
         return false; // Não autenticado
     }
 
+    /**
+     * Altera a senha do admin se autenticado.
+     * @param cpfAdmin CPF do admin.
+     * @param senhaAtual Senha atual do admin.
+     * @param senhaNova Nova senha do admin.
+     * @return true se a alteração foi bem sucedida, se não, false.
+     */
     public boolean configurarSenhaADMIN(String cpfAdmin, int senhaAtual, int senhaNova) {
         if (admin != null && admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual)) {
             admin.setSenha(senhaNova);

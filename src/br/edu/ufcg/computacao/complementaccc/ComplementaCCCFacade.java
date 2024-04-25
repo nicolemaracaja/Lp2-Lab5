@@ -7,23 +7,28 @@ public class ComplementaCCCFacade {
 	boolean criarEstudante(String nome, String cpf, int senha, String matricula) {
 		return cont.criarEstudante(nome, cpf, senha, matricula);
 	}
+	
 	String[] exibirEstudantes(String cpf, int senha){
 		//ADMIN
-		return new String[1];
+		return cont.exibirEstudantes(cpf, senha);
 	}
+	
 	boolean alterarEstudante(String cpf, int senha, String tipoAlteracao, String novoValor) {
-		return true;
+		return cont.alterarEstudante(cpf, senha, tipoAlteracao, novoValor);
 	}
+	
 	String exibirAdmin(String cpf, int senha){
-		return "";
+		return cont.exibirAdmin(cpf, senha);
 		//ADMIN
 	}
+	
 	boolean configurarNovoADMIN(String cpf, int senhaAtual, String cpfNovo, int senhaNova){
-		return true;
+		return cont.configurarNovoADMIN(cpf, senhaAtual, cpf, cpfNovo, senhaNova);
 		//ADMIN
 	}
+	
 	boolean configurarSenhaADMIN(String cpf, int senhaAtual, int senhaNova){
-		return true;
+		return cont.configurarSenhaADMIN(cpf, senhaAtual, senhaNova);
 		//ADMIN
 	}
 	
