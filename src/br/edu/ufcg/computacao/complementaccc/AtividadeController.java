@@ -1,5 +1,5 @@
 package br.edu.ufcg.computacao.complementaccc;
 
-public interface AtividadeInterface {
+public class AtividadeController {
 
 }

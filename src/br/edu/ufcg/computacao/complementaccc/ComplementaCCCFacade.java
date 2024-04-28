@@ -1,11 +1,31 @@
 package br.edu.ufcg.computacao.complementaccc;
 
+import java.util.*;
+
+/**
+ * Fachada do sistema ComplementaCCC, que manipula todas as funções.
+ * @author Nicole Brito Maracajá - 123111413.
+ */
 public class ComplementaCCCFacade {
 	
+	/**
+	 * Controller de Usuário, para manipular as funções dos usuários.
+	 */
 	private UsuarioController uc;
+	
+	/**
+	 * Controller de FAQ, para manipular as funções do FAQ.
+	 */
 	private FAQController fc;
+	
+	/**
+	 * Administrador do sistema, que será instanciado em UsuárioController.
+	 */
 	private Admin admin = uc.getAdmin();
 	
+	/**
+	 * Constrói a fachada ComplementaCCC.
+	 */
 	public ComplementaCCCFacade() {
 		this.uc = new UsuarioController();
 	}
@@ -18,7 +38,7 @@ public class ComplementaCCCFacade {
      * @param matricula Matrícula do estudante.
      * @return true se a alteração foi bem sucedida, se não, false.
      */
-    public boolean criarEstudante(String nome, String cpf, int senha, String matricula) {
+    public boolean criarEstudante(String nome, String cpf, String senha, String matricula) {
         return uc.criarEstudante(nome, cpf, senha, matricula);
     }
 
@@ -28,7 +48,7 @@ public class ComplementaCCCFacade {
      * @param senhaAdmin Senha do admin.
      * @return Array de strings com informações dos estudantes, ou null se a autenticação falhar.
      */
-    public String[] exibirEstudantes(String cpfAdmin, int senhaAdmin) {
+    public String[] exibirEstudantes(String cpfAdmin, String senhaAdmin) {
         return uc.exibirEstudantes(admin.getCpf(), admin.getSenha());
     }
 
@@ -40,7 +60,7 @@ public class ComplementaCCCFacade {
      * @param novoValor Novo valor para a alteração.
      * @return true se a alteração foi bem-sucedida, se não, false.
      */
-    public boolean alterarEstudante(String cpf, int senha, String tipoAlteracao, String novoValor) {
+    public boolean alterarEstudante(String cpf, String senha, String tipoAlteracao, String novoValor) {
         return uc.alterarEstudante(cpf, senha, tipoAlteracao, novoValor);
     }
 
@@ -50,7 +70,7 @@ public class ComplementaCCCFacade {
      * @param senhaAdmin Senha do admin.
      * @return String com informações do admin, ou null se a autenticação falhar.
      */
-    public String exibirAdmin(String cpfAdmin, int senhaAdmin) {
+    public String exibirAdmin(String cpfAdmin, String senhaAdmin) {
         return uc.exibirAdmin(admin.getCpf(), admin.getSenha());
     }
 
@@ -63,7 +83,7 @@ public class ComplementaCCCFacade {
      * @param senhaNova Nova senha do admin.
      * @return true se a configuração foi bem sucedida, se não, false.
      */
-    public boolean configurarNovoADMIN(String cpfAdmin, int senhaAtual, String nomeNovo, String cpfNovo, int senhaNova) {
+    public boolean configurarNovoADMIN(String cpfAdmin, String senhaAtual, String nomeNovo, String cpfNovo, String senhaNova) {
         return uc.configurarNovoADMIN(admin.getCpf(), admin.getSenha(), nomeNovo, cpfNovo, senhaNova);
     }
 
@@ -74,7 +94,7 @@ public class ComplementaCCCFacade {
      * @param senhaNova Nova senha do admin.
      * @return true se a alteração foi bem sucedida, se não, false.
      */
-    public boolean configurarSenhaADMIN(String cpfAdmin, int senhaAtual, int senhaNova) {
+    public boolean configurarSenhaADMIN(String cpfAdmin, String senhaAtual, String senhaNova) {
         return uc.configurarSenhaADMIN(admin.getCpf(), admin.getSenha(), senhaNova);
     }
 
@@ -85,7 +105,7 @@ public class ComplementaCCCFacade {
      * @param pergunta Pergunta do item.
      * @return True se foi adicionado, se não, false.
      */
-	boolean adicionarItemFAQ(String cpf, int senha, String pergunta) {
+	boolean adicionarItemFAQ(String cpf, String senha, String pergunta) {
 		return fc.adicionarItemFAQ(admin.getCpf(), admin.getSenha(), pergunta);
 		//ADMIN
 	}
@@ -98,7 +118,7 @@ public class ComplementaCCCFacade {
 	 * @param resposta Resposta do item.
 	 * @return True se foi adicionado, se não, false.
 	 */
-	boolean adicionarItemFAQ(String cpf, int senha, String pergunta, String resposta) {
+	boolean adicionarItemFAQ(String cpf, String senha, String pergunta, String resposta) {
 		return fc.adicionarItemFAQ(admin.getCpf(), admin.getSenha(), pergunta, resposta);
 		//ADMIN
 	}
@@ -111,7 +131,7 @@ public class ComplementaCCCFacade {
 	 * @param resposta Resposta nova.
 	 * @return True se foi alterado, se não, false.
 	 */
-	boolean alteraRespostaItem(String cpf, int senha, int itemIndex, String resposta) {
+	boolean alteraRespostaItem(String cpf, String senha, int itemIndex, String resposta) {
 		return fc.alteraRespostaItem(admin.getCpf(), admin.getSenha(), itemIndex, resposta);
 		//ADMIN
 	}
@@ -149,7 +169,7 @@ public class ComplementaCCCFacade {
 	 * @param tags Array de tags que o item possui.
 	 * @return True, se atribuiu alguma tag, se tiver tido algum problema, false.
 	 */
-	boolean atribuirTagsItemFAQ(String cpf, int senha,int itemIndex, String[] tags) {
+	boolean atribuirTagsItemFAQ(String cpf, String senha,int itemIndex, List<String> tags) {
 		return fc.atribuirTagsItemFAQ(admin.getCpf(), admin.getSenha(), itemIndex, tags);
 		//ADMIN
 	}

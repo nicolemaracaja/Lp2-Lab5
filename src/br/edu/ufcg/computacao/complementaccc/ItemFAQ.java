@@ -40,41 +40,57 @@ public class ItemFAQ {
     }
 
     /**
-     * 
-     * @return
+     * Pega a pergunta.
+     * @return pergunta A pergunta do item.
      */
     public String getPergunta() {
         return this.pergunta;
     }
-
+    
     /**
-     * 
-     * @param resposta
+     * Pega a resposta.
+     * @return resposta A resposta do item.
      */
-    public void setResposta(String resposta) {
-        this.resposta = resposta;
+    public String getResposta() {
+    	return this.resposta;
     }
 
     /**
-     * 
+     * Muda a resposta do item.
+     * @param resposta Nova resposta do item.
+     */
+    public void setResposta(String novaResposta) {
+        this.resposta = novaResposta;
+    }
+
+    /**
+     * Incrementa o destaque do item.
      */
     public void incrementarDestaque() {
         this.destaque++;
     }
 
     /**
-     * 
-     * @return
+     * Pega o destaque do item.
+     * @return destaque O destaque do item.
      */
     public int getDestaque() {
         return this.destaque;
     }
+    
+    /**
+     * Pega as tags do item
+     * @return tags Tags do item.
+     */
+    public List<String> getTags() {
+    	return this.tags;
+    }
 
     /**
-     * 
-     * @param novasTags
+     * Adiciona tags ao item.
+     * @param novasTags Tags que serão adicionadas.
      */
-    public void adicionarTags(String[] novasTags) {
+    public void adicionarTags(List<String> novasTags) {
         for (String tag : novasTags) {
             if (tags.size() < 3 && !tags.contains(tag)) {
                 tags.add(tag);
@@ -83,9 +99,9 @@ public class ItemFAQ {
     }
 
     /**
-     * 
-     * @param buscaTags
-     * @return
+     * Verifica se o item contém alguma tag.
+     * @param buscaTags Tags que serão verificadas.
+     * @return true, se sim, se não, false.
      */
     public boolean contemAlgumaTag(List<String> buscaTags) {
         for (String tag : tags) {
@@ -97,10 +113,11 @@ public class ItemFAQ {
     }
 
     /**
-     * 
+     * Representação textual do item.
+     * @return toString.
      */
     @Override
     public String toString() {
-        return "Pergunta: " + pergunta + ", Resposta: " + resposta + ", Destaque: " + destaque + ", Tags: " + tags;
+        return this.pergunta + " " + this.resposta;
     }
 }

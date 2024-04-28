@@ -32,7 +32,7 @@ public class FAQController {
      * @param senha Senha do admin.
      * @return True, se o admin for autenticado, se não, false.
      */
-    public boolean autenticar(String cpf, int senha) {
+    public boolean autenticar(String cpf, String senha) {
         return admin.getCpf().equals(cpf) && admin.autenticar(senha);
     }
 
@@ -44,7 +44,7 @@ public class FAQController {
      * @param resposta
      * @return
      */
-    public boolean adicionarItemFAQ(String cpf, int senha, String pergunta, String resposta) {
+    public boolean adicionarItemFAQ(String cpf, String senha, String pergunta, String resposta) {
         if (autenticar(cpf, senha)) {
             for (ItemFAQ item : faq) {
                 if (item.getPergunta().equalsIgnoreCase(pergunta)) {
@@ -64,7 +64,7 @@ public class FAQController {
      * @param pergunta
      * @return
      */
-    public boolean adicionarItemFAQ(String cpf, int senha, String pergunta) {
+    public boolean adicionarItemFAQ(String cpf, String senha, String pergunta) {
         return adicionarItemFAQ(cpf, senha, pergunta, null); // Permite adicionar uma pergunta sem resposta inicial
     }
 
@@ -76,7 +76,7 @@ public class FAQController {
      * @param resposta
      * @return
      */
-    public boolean alteraRespostaItem(String cpf, int senha, int itemIndex, String resposta) {
+    public boolean alteraRespostaItem(String cpf, String senha, int itemIndex, String resposta) {
         if (autenticar(cpf, senha)) {
             if (itemIndex >= 0 && itemIndex < faq.size()) {
                 faq.get(itemIndex).setResposta(resposta);
@@ -107,7 +107,7 @@ public class FAQController {
      * @param tags
      * @return
      */
-    public boolean atribuirTagsItemFAQ(String cpf, int senha, int itemIndex, String[] tags) {
+    public boolean atribuirTagsItemFAQ(String cpf, String senha, int itemIndex, List<String> tags) {
         if (autenticar(cpf, senha)) {
             if (itemIndex >= 0 && itemIndex < faq.size()) {
                 faq.get(itemIndex).adicionarTags(tags);

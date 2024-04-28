@@ -2,20 +2,30 @@ package br.edu.ufcg.computacao.complementaccc;
 
 import java.util.*;
 
+/**
+ * Classe UsuarioController, que manipula as funções relacionadas ao usuário.
+ * @author Nicole Brito Maracajá - 123111413.
+ */
 public class UsuarioController {
 
+	/**
+	 * Lista de estudantes cadastrados no sistema.
+	 */
 	private List<Estudante> estudantes;
+	
+	/**
+	 * Administrador do sistema.
+	 */
 	private Admin admin;
 	
+	/**
+	 * Constrói o UsuárioController.
+	 */
 	public UsuarioController() {
 		this.estudantes = new ArrayList<>();
-		this.admin = new Admin("admin", "00000000000", 00000000);
+		this.admin = new Admin("admin", "000.000.000-00", "00000000");
 	}
-			
-	public Admin getAdmin() {
-		return admin;
-	}
-	
+		
 	/**
      * Cria um estudante com base em seu nome, seu cpf, sua senha e sua matrícula.
      * @param nome Nome do estudante.
@@ -24,14 +34,24 @@ public class UsuarioController {
      * @param matricula Matrícula do estudante.
      * @return true se a alteração foi bem sucedida, se não, false.
      */
-	public boolean criarEstudante(String nome, String cpf, int senha, String matricula) {
+	public boolean criarEstudante(String nome, String cpf, String senha, String matricula) throws IllegalArgumentException{
+		if(nome.isBlank() || nome.isEmpty()) {
+			throw new IllegalArgumentException("NOME INVÁLIDO!");
+		}
+		if(cpf.isBlank() || cpf.isEmpty()) {
+			throw new IllegalArgumentException("CPF INVÁLIDO!");
+		}
+		if (senha.length() != 8) {
+			throw new IllegalArgumentException("SENHA INVÁLIDA!");
+		}
+		
         for (Estudante estudante : estudantes) {
             if (estudante.cpf.equals(cpf)) {
-                return false; // CPF já cadastrado
+                throw new IllegalArgumentException("CPF JÁ CADASTRADO!"); // CPF já cadastrado
             }
         }
         estudantes.add(new Estudante(nome, cpf, senha, matricula));
-        return true;
+        return true; //Estudante cadastrado no sistema
     }
 
 	 /**
@@ -40,15 +60,18 @@ public class UsuarioController {
      * @param senhaAdmin Senha do admin.
      * @return Array de strings com informações dos estudantes, ou null se a autenticação falhar.
      */
-    public String[] exibirEstudantes(String cpfAdmin, int senhaAdmin) {
-        if (!admin.cpf.equals(cpfAdmin) && !admin.autenticar(senhaAdmin)) {
-            return null; // Não autenticado
+    public String[] exibirEstudantes(String cpfAdmin, String senhaAdmin) {
+    	if(cpfAdmin.isBlank() || cpfAdmin.isEmpty()) {
+			throw new IllegalArgumentException("CPF INVÁLIDO!");
+		}
+        if (!admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
+            throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado
         }
 
         Collections.sort(estudantes, (e1, e2) -> e1.nome.compareTo(e2.nome)); // Ordenar por nome
         String[] resultado = new String[estudantes.size()];
         for (int i = 0; i < estudantes.size(); i++) {
-            resultado[i] = estudantes.get(i).toString();
+            resultado[i] = estudantes.get(i).getNome();
         }
         return resultado;
     }
@@ -61,25 +84,29 @@ public class UsuarioController {
      * @param novoValor Novo valor para a alteração.
      * @return true se a alteração foi bem-sucedida, se não, false.
      */
-    public boolean alterarEstudante(String cpf, int senha, String tipoAlteracao, String novoValor) {
+    public boolean alterarEstudante(String cpf, String senha, String tipoAlteracao, String novoValor) {
+		if(cpf.isBlank() || cpf.isEmpty()) {
+			throw new IllegalArgumentException("CPF INVÁLIDO!");
+		}
+		
         for (Estudante estudante : estudantes) {
             if (estudante.cpf.equals(cpf) && estudante.autenticar(senha)) {
                 switch (tipoAlteracao.toLowerCase()) {
                     case "nome":
                         estudante.setNome(novoValor);
                         return true;
-                    case "matricula":
+                    case "matricula":                   	
                         estudante.setMatricula(novoValor);
                         return true;
-                    case "senha":
-                        estudante.setSenha(Integer.parseInt(novoValor));
+                    case "senha":           
+                        estudante.setSenha(novoValor);
                         return true;
                     default:
                         return false;
                 }
             }
         }
-        return false; // Estudante não encontrado ou senha incorreta
+        throw new IllegalArgumentException("SENHA INVÁLIDA!"); // Estudante não encontrado ou senha incorreta
     }
 
     /**
@@ -88,9 +115,9 @@ public class UsuarioController {
      * @param senhaAdmin Senha do admin.
      * @return String com informações do admin, ou null se a autenticação falhar.
      */
-    public String exibirAdmin(String cpfAdmin, int senhaAdmin) {
-        if (admin == null || !admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
-            return null; // Não autenticado
+    public String exibirAdmin(String cpfAdmin, String senhaAdmin) {
+        if (!admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAdmin)) {
+        	throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado
         }
         return admin.toString();
     }
@@ -104,12 +131,22 @@ public class UsuarioController {
      * @param senhaNova Nova senha do admin.
      * @return true se a configuração foi bem sucedida, se não, false.
      */
-    public boolean configurarNovoADMIN(String cpfAdmin, int senhaAtual, String nomeNovo, String cpfNovo, int senhaNova) {
-        if ((admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual))) {
+    public boolean configurarNovoADMIN(String cpfAdmin, String senhaAtual, String nomeNovo, String cpfNovo, String senhaNova) {
+    	if(nomeNovo.isBlank() || nomeNovo.isEmpty()) {
+			throw new IllegalArgumentException("NOME INVÁLIDO!");
+		}
+		if(cpfNovo.isBlank() || cpfNovo.isEmpty()) {
+			throw new IllegalArgumentException("CPF INVÁLIDO!");
+		}
+		if (senhaNova.length() != 8) {
+			throw new IllegalArgumentException("SENHA INVÁLIDA!");
+		}
+		
+    	if ((admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual))) {
             admin = new Admin(nomeNovo, cpfNovo, senhaNova); // Configurar ou reconfigurar ADMIN
             return true;
         }
-        return false; // Não autenticado
+        throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado
     }
 
     /**
@@ -119,13 +156,26 @@ public class UsuarioController {
      * @param senhaNova Nova senha do admin.
      * @return true se a alteração foi bem sucedida, se não, false.
      */
-    public boolean configurarSenhaADMIN(String cpfAdmin, int senhaAtual, int senhaNova) {
-        if (admin != null && admin.cpf.equals(cpfAdmin) && admin.autenticar(senhaAtual)) {
-            admin.setSenha(senhaNova);
-            return true;
+    public boolean configurarSenhaADMIN(String cpfAdmin, String senhaAtual, String senhaNova) {
+        if (!admin.cpf.equals(cpfAdmin) || !admin.autenticar(senhaAtual)) {
+            throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado
         }
-        return false; // Não autenticado
+    	if (senhaNova.length() != 8) {
+    			throw new IllegalArgumentException("SENHA INVÁLIDA!");
+    	}
+        admin.setSenha(senhaNova);
+        return true;
     }
+       
+    
+	/**
+	 * Pega o administrador do sistema.
+	 * @return admin Administrador do sistema.
+	 */
+	public Admin getAdmin() {
+		return admin;
+	}
+	
 }
 	
    
