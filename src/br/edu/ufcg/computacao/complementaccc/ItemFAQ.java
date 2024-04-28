@@ -118,6 +118,10 @@ public class ItemFAQ {
      */
     @Override
     public String toString() {
+    	if(this.resposta == null) {
+    		return this.pergunta;
+    	}
         return this.pergunta + " " + this.resposta;
-    }
+    }   
+    
 }

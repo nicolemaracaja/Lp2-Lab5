@@ -1,5 +1,7 @@
 package br.edu.ufcg.computacao.complementaccc;
 
+import java.util.*;
+
 /**
  * Classe Estudante, que possui herança de Usuário.
  * @author Nicole Brito Maracajá - 123111413.
@@ -12,6 +14,16 @@ public class Estudante extends Usuario{
 	protected String matricula;
 	
 	/**
+	 * Lista das atividades que o estudante participa.
+	 */
+	protected List<Atividade> atividades;
+	
+	/**
+	 * Quantidade de atividades que o estudante participa.
+	 */
+	protected int atividadeCount;
+	
+	/**
 	 * Constrói o estudante.
 	 * @param nome Nome do estudante.
 	 * @param cpf CPF do estudante.
@@ -21,6 +33,8 @@ public class Estudante extends Usuario{
 	public Estudante(String nome, String cpf, String senha, String matricula) {
 		super(nome, cpf, senha);
 		this.matricula = matricula;
+		this.atividades = new ArrayList<>();
+		this.atividadeCount = 0;
 	}
 
 	/**
@@ -38,6 +52,23 @@ public class Estudante extends Usuario{
 	public void setMatricula(String novaMatricula) {
 		this.matricula = novaMatricula;
 	}
+	
+	/**
+	 * Adiciona uma nova atividade a lista de atividades do estudante.
+	 * @param atividade Atividade.
+	 */
+	 public void adicionarAtividade(Atividade atividade) {
+		 this.atividades.add(atividade);
+	     this.atividadeCount++;
+	 }
+	 
+	 /**
+	  * Pega as atividades que o estudante participa.
+	  * @return atividades Atividades do estudante.
+	  */
+	 public List<Atividade> getAtividades() {
+	    return atividades;
+	 }
 
 	/**
 	 * Representação textual do estudante.

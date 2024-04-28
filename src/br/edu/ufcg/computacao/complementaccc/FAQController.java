@@ -16,14 +16,21 @@ public class FAQController {
 	 * Administrador do sistema ComplementaCCC.
 	 */
     private Admin admin;
+    
+    /**
+     * índice o item.
+     */
+    private int itemIndex;
 
     /**
      * Construtor de FAQController.
      * @param admin Administrador do sistema.
      */
-    public FAQController(Admin admin) {
+    public FAQController() {
         this.faq = new ArrayList<>();
-        this.admin = admin;
+        this.admin = new Admin("admin", "000.000.000-00", "00000000");
+        this.itemIndex = 0;
+
     }
 
     /**
@@ -37,12 +44,12 @@ public class FAQController {
     }
 
     /**
-     * 
-     * @param cpf
-     * @param senha
-     * @param pergunta
-     * @param resposta
-     * @return
+     * Adiciona um item com resposta à FAQ.
+     * @param cpf CPF do admin.
+     * @param senha Senha do admin;
+     * @param pergunta Pergunta do item.
+     * @param resposta Resposta do item.
+     * @return true, se adicionar, se não, false.
      */
     public boolean adicionarItemFAQ(String cpf, String senha, String pergunta, String resposta) {
         if (autenticar(cpf, senha)) {
@@ -52,29 +59,30 @@ public class FAQController {
                 }
             }
             faq.add(new ItemFAQ(pergunta, resposta));
+            this.itemIndex++;
             return true;
         }
-        return false; // Não autenticado
+        throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado ou índice inválido
     }
 
     /**
-     * 
-     * @param cpf
-     * @param senha
-     * @param pergunta
-     * @return
+     * Adiciona um item sem resposta à FAQ.
+     * @param cpf CPF do admin.
+     * @param senha Senha do admin.
+     * @param pergunta Pergunta do item.
+     * @return true, se tiver adicionado, se não, false.
      */
     public boolean adicionarItemFAQ(String cpf, String senha, String pergunta) {
         return adicionarItemFAQ(cpf, senha, pergunta, null); // Permite adicionar uma pergunta sem resposta inicial
     }
 
     /**
-     * 
-     * @param cpf
-     * @param senha
-     * @param itemIndex
-     * @param resposta
-     * @return
+     * Altera a resposta de um item da FAQ.
+     * @param cpf CPF do admin.
+     * @param senha Senha do admin.
+     * @param itemIndex índice do item.
+     * @param resposta Nova resposta do item.
+     * @return true, se tiver alterado, se não, false.
      */
     public boolean alteraRespostaItem(String cpf, String senha, int itemIndex, String resposta) {
         if (autenticar(cpf, senha)) {
@@ -83,29 +91,29 @@ public class FAQController {
                 return true;
             }
         }
-        return false; // Não autenticado ou índice inválido
+        throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado ou índice inválido
     }
 
     /**
-     * 
-     * @param itemIndex
-     * @return
+     * Destaca um item da FAQ.
+     * @param itemIndex índice do item que vai receber destaque.
+     * @return true, se tiver destacado, se não, false.
      */
     public boolean destacarItem(int itemIndex) {
         if (itemIndex >= 0 && itemIndex < faq.size()) {
             faq.get(itemIndex).incrementarDestaque();
             return true;
         }
-        return false; // Índice inválido
+        throw new IllegalArgumentException("ÍNDICE INVÁLIDO!"); //índice inválido
     }
 
     /**
-     * 
-     * @param cpf
-     * @param senha
-     * @param itemIndex
-     * @param tags
-     * @return
+     * Atribui tags a um determinado item da FAQ.
+     * @param cpf CPF do admin.
+     * @param senha Senha do admin.
+     * @param itemIndex índice o item.
+     * @param tags Tags que serão atribuidas.
+     * @return true, se tiver adicionado, se não, false.
      */
     public boolean atribuirTagsItemFAQ(String cpf, String senha, int itemIndex, List<String> tags) {
         if (autenticar(cpf, senha)) {
@@ -114,12 +122,12 @@ public class FAQController {
                 return true;
             }
         }
-        return false; // Não autenticado ou índice inválido
+        throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado ou índice inválido
     }
 
     /**
-     * 
-     * @return
+     * Lista os items da FAQ.
+     * @return resultado Representação textual dos itens.
      */
     public String[] listarFAQ() {
         String[] resultado = new String[faq.size()];
@@ -130,8 +138,8 @@ public class FAQController {
     }
 
     /**
-     * 
-     * @return
+     * Lista os itens da FAQ por ordem de destaque.
+     * @return resultado Representação textual dos itens ordenados.
      */
     public String[] listarFAQPorDestaque() {
         List<ItemFAQ> ordenadosPorDestaque = new ArrayList<>(faq);
@@ -144,9 +152,9 @@ public class FAQController {
     }
 
     /**
-     * 
-     * @param tags
-     * @return
+     * Procura os itens a partir das tags.
+     * @param tags Tags de busca.
+     * @return resultado Representação textual dos itens.
      */
     public String[] buscarItemFAQ(String[] tags) {
         List<String> resultado = new ArrayList<>();

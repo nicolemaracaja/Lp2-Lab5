@@ -43,7 +43,7 @@ public class Publicacao extends Atividade {
      */
     @Override
     public int calcularCreditos() {
-        return 0;
+        return 2; //uma publicação em conferência Qualis A3 iria gerar 2 créditos
     }
     
     /**
