@@ -4,7 +4,7 @@ package br.edu.ufcg.computacao.complementaccc;
  * Classe Atividade.
  * @author Nicole Brito Maracajá - 123111413.
  */
-public class Atividade {
+public abstract class Atividade {
 
 	/**
 	 * Tipo da atividade.
@@ -34,6 +34,18 @@ public class Atividade {
 	 * @param linkComprovacao Link
 	 */
 	public Atividade(String tipo, String descricao, String codigo, String linkComprovacao) {
+		if (tipo.isBlank() || tipo.trim().isEmpty()) {
+            throw new IllegalArgumentException("TIPO INVÁLIDO!");
+    }
+		if (descricao.isBlank() || descricao.trim().isEmpty()) {
+	            throw new IllegalArgumentException("DESCRIÇÃO INVÁLIDA!");
+	    }
+		if (codigo.isBlank() || codigo.trim().isEmpty()) {
+            throw new IllegalArgumentException("CÓDIGO INVÁLIDO!");
+        }
+        if (linkComprovacao == null || linkComprovacao.trim().isEmpty()) {
+            throw new IllegalArgumentException("LINK DE COMPROVAÇÃO INVÁLIDO!");
+        }
 		this.tipo = tipo;
 		this.descricao = descricao;
 		this.codigo = codigo;
@@ -68,8 +80,11 @@ public class Atividade {
 	 * Muda a descrição da atividade.
 	 * @param descricao Nova descrição da atividade.
 	 */
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescricao(String novaDescricao) {
+		if (descricao .isBlank() || descricao.trim().isEmpty()) {
+            throw new IllegalArgumentException("DESCRIÇÃO INVÁLIDA!");
+        }
+		this.descricao = novaDescricao;
 	}
 
 	/**
@@ -84,23 +99,22 @@ public class Atividade {
 	 * Muda o link de comprovação da atividade.
 	 * @param linkComprovacao Novo link do documento comprobatório.
 	 */
-	public void setLinkComprovacao(String linkComprovacao) {
-		this.linkComprovacao = linkComprovacao;
+	public void setLinkComprovacao(String novoLinkComprovacao) {
+		if (linkComprovacao.isBlank() || linkComprovacao.trim().isEmpty()) {
+            throw new IllegalArgumentException("LINK DE COMPROVAÇÃO INVÁLIDO!");
+        }
+		this.linkComprovacao = novoLinkComprovacao;
 	}
 
 	/**
 	 * Calcula os créditos de uma respectiva atividade.
-	 * @return 0 valor padrão para a super classe.
 	 */
-	public int calcularCreditos() {
-		return 0;
-	}
-	
+	public abstract int calcularCreditos();
+
 	/**
 	 * Representação textual da atividade.
 	 */
-	public String toString() {
-		return "Código: " + this.codigo + "\n" + "Tipo: " + this.tipo + "\n" +"Descrição: " + this.descricao + "\n" + "Link: " + this.linkComprovacao;
-	}
+	@Override
+	public abstract String toString();
 	
 }

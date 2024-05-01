@@ -175,6 +175,14 @@ public class UsuarioController {
 	public Admin getAdmin() {
 		return admin;
 	}
+
+	/**
+	 * Pega os estudantes do sistema.
+	 * @return estudantes Estudantes do sistema.
+	 */
+	public List<Estudante> getEstudantes() {
+		return this.estudantes;
+	}
 	
 }
 	

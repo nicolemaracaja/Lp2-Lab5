@@ -24,8 +24,11 @@ public class Estagio extends Atividade {
      * @param linkComprovacao Link do documento comprobatório do Estágio.
      * @param horas Horas cumpridas no estágio.
      */
-    public Estagio(String codigo, String tipo, String descricao, String linkComprovacao, int horas) {
-        super(codigo, tipo, descricao, linkComprovacao);
+    public Estagio(String codigo, String descricao, String linkComprovacao, int horas) {
+        super(codigo, "ESTÁGIO", descricao, linkComprovacao);
+        if (horas < 0) {
+            throw new IllegalArgumentException("HORAS NÃO PODEM SER NEGATIVAS!");
+        }
         this.horas = horas;
     }
 
@@ -42,6 +45,6 @@ public class Estagio extends Atividade {
      */
     @Override
     public String toString() {
-    	return super.toString() + "\n" + "Horas: " + this.horas;
+    	return "Estágio" + "\n" + "Horas: " + this.horas;
     }
 }

@@ -31,8 +31,17 @@ public class Publicacao extends Atividade {
      * @param doi DOI.
      * @param qualis Qualis.
      */
-    public Publicacao(String codigo, String tipo, String descricao, String linkComprovacao, String tituloArtigo, String doi, String qualis) {
-        super(codigo, tipo, descricao, linkComprovacao);
+    public Publicacao(String codigo, String descricao, String linkComprovacao, String tituloArtigo, String doi, String qualis) {
+        super(codigo, "PUBLICAÇÃO", descricao, linkComprovacao);
+        if (tituloArtigo.isBlank() || tituloArtigo.trim().isEmpty()) {
+            throw new IllegalArgumentException("TÍTULO DO ARTIGO INVÁLIDO!");
+        }
+        if (doi.isBlank() || doi.trim().isEmpty()) {
+            throw new IllegalArgumentException("DOI INVÁLIDO!");
+        }
+        if (qualis.isBlank() || qualis.trim().isEmpty()) {
+            throw new IllegalArgumentException("QUALIS INVÁLIDO!");
+        }
         this.tituloArtigo = tituloArtigo;
         this.doi = doi;
         this.qualis = qualis;
@@ -43,7 +52,16 @@ public class Publicacao extends Atividade {
      */
     @Override
     public int calcularCreditos() {
-        return 2; //uma publicação em conferência Qualis A3 iria gerar 2 créditos
+    	switch (qualis.toUpperCase()) {
+        case "A1": 
+        	return 4;
+        case "A2": 
+        	return 3;
+        case "A3": 
+        	return 2;
+        default: 
+        	return 1;
+    	}
     }
     
     /**
@@ -51,6 +69,6 @@ public class Publicacao extends Atividade {
      */
     @Override
     public String toString() {
-    	return super.toString() + "\n" + "Título do artigo: " + this.tituloArtigo + "\n" + "DOI: " + this.doi + "\n" + "Qualis: " + this.qualis;
+    	return "Publicação" + "\n" + "Título do artigo: " + this.tituloArtigo + "\n" + "DOI: " + this.doi + "\n" + "Qualis: " + this.qualis;
     }
 }

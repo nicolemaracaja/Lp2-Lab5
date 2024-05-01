@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Classe ItemFAQ, que representa o conjunto pergunta + resposta do FAQ.
+ * @author Nicole Brito Maracajá - 123111413.
  */
 public class ItemFAQ {
 

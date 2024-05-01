@@ -24,8 +24,11 @@ public class PesquisaExtensao extends Atividade {
      * @param linkComprovacao Link do documento comprobatório da pesquisa de extensão.
      * @param meses Quantidade de meses de duração da atividade de extensão.
      */
-    public PesquisaExtensao(String codigo, String tipo, String descricao, String linkComprovacao, int meses) {
-        super(codigo, tipo, descricao, linkComprovacao);
+    public PesquisaExtensao(String codigo, String descricao, String linkComprovacao, int meses) {
+        super(codigo, "PESQUISA DE EXTENSÃO", descricao, linkComprovacao);
+        if (meses < 0) {
+            throw new IllegalArgumentException("NÚMERO DE MESES NÃO PODE SER NEGATIVO!");
+        }
         this.meses = meses;
     }
 
@@ -42,6 +45,6 @@ public class PesquisaExtensao extends Atividade {
      */
     @Override
     public String toString() {
-    	return super.toString() + "Quantidade de meses: " + this.meses;
+    	return "Pesquisa de Extensão" + "\n" + "Quantidade de meses: " + this.meses;
     }
 }

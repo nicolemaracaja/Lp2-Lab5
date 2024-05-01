@@ -30,8 +30,14 @@ public class Monitoria extends Atividade {
      * @param disciplina Disciplina que o usuário aplica monitoria.
      * @param semestre Semestre que o usuário está aplicando a monitoria.
      */
-    public Monitoria(String codigo, String tipo, String descricao, String linkComprovacao, String disciplina, int semestre) {
-        super(codigo, tipo, descricao, linkComprovacao);
+    public Monitoria(String codigo, String descricao, String linkComprovacao, String disciplina, int semestre) {
+        super(codigo, "MONITORIA", descricao, linkComprovacao);
+        if (disciplina.isBlank() || disciplina.trim().isEmpty()) {
+            throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
+        }
+        if (semestre < 0) {
+            throw new IllegalArgumentException("SEMESTRE INVÁLIDO!");
+        }
         this.disciplina = disciplina;
         this.semestre = semestre;
     }
@@ -49,6 +55,7 @@ public class Monitoria extends Atividade {
      */
     @Override
     public String toString() {
-    	return super.toString() + "\n" + "Disciplina: " + this.disciplina + "\n" + "Semestre: " + this.semestre;
+    	return "Monitoria" + "\n" + "Disciplina: " + this.disciplina + "\n" + "Semestre: " + this.semestre;
     }
+
 }

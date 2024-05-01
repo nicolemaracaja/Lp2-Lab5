@@ -24,6 +24,16 @@ public class Estudante extends Usuario{
 	protected int atividadeCount;
 	
 	/**
+	 * Lista dos relatórios que o estudante participante.
+	 */
+	protected List<Relatorio> relatorios;
+	
+	/**
+	 * Quantidade de relatórios que o estudante registrou.
+	 */
+	protected int relatorioCount;
+	
+	/**
 	 * Constrói o estudante.
 	 * @param nome Nome do estudante.
 	 * @param cpf CPF do estudante.
@@ -68,6 +78,11 @@ public class Estudante extends Usuario{
 	  */
 	 public List<Atividade> getAtividades() {
 	    return atividades;
+	 }
+	 
+	 public void adicionarRelatorio(Relatorio relatorio) {
+		 this.relatorios.add(relatorio);
+		 this.relatorioCount++;
 	 }
 
 	/**

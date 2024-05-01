@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Classe FAQController, que manipula as funções do FAQ.
+ * @author Nicole Brito Maracajá - 123111413.
  */
 public class FAQController {
 
@@ -143,7 +144,7 @@ public class FAQController {
      */
     public String[] listarFAQPorDestaque() {
         List<ItemFAQ> ordenadosPorDestaque = new ArrayList<>(faq);
-        Collections.sort(ordenadosPorDestaque, Comparator.comparingInt(ItemFAQ::getDestaque).reversed()); //maior destaque primeiro
+        Collections.sort(ordenadosPorDestaque, new ComparadorFAQ()); //maior destaque primeiro
         String[] resultado = new String[ordenadosPorDestaque.size()];
         for (int i = 0; i < ordenadosPorDestaque.size(); i++) {
             resultado[i] = ordenadosPorDestaque.get(i).toString();
