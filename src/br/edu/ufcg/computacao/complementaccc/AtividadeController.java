@@ -191,29 +191,14 @@ public class AtividadeController {
         if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
+        
+        Map<String, Atividade> atividadesMap = estudante.getAtividades();
+        Atividade atividade = atividadesMap.get(codigoAtividade);
 
-        ArrayList<Atividade> atividades = new ArrayList<>(estudante.getAtividades().values());
-        for (Atividade atividade : atividades) {
-            if (atividade.getCodigo().equals(codigoAtividade)) {
-                return atividade.calcularCreditos();
-            }
+        if (atividade == null) {
+        	throw new IllegalArgumentException("CÓDIGO INVÁLIDO!"); //atividade não encontrada
+            // Se a atividade não for encontrada
         }
-        throw new IllegalArgumentException("CÓDIGO INVÁLIDO!");
+        return atividade.calcularCreditos();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

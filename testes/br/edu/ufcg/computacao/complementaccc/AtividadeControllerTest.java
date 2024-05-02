@@ -151,8 +151,112 @@ class AtividadeControllerTest {
 		assertEquals(false, acBase.alterarComprovacaoAtividade("000.000.000-00", "00000000", "000.000.000-00_2", "blablabla"));	
 	}
 
+	/**
+	 * CASO 13
+	 * Calcular créditos de uma monitoria que existe.
+	 */
 	@Test
-	void testCalcularCreditos() {
+	void testCalcularCreditosMonitoriaExistente() {
+		acBase.criarAtividadeMonitoria("000.000.000-00", "00000000", "MONITORIA", 2, "FMCC2");
+		assertEquals(8, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
+	}
+	
+	/**
+	 * CASO 14
+	 * Calcular créditos de uma monitoria que não existe.
+	 */
+	@Test
+	void testCalcularCreditosMonitoriaInexistente() {
+		try {
+			acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1");
+			fail();
+		}catch(IllegalArgumentException iae) {
+			assertEquals(iae.getMessage(), "CÓDIGO INVÁLIDO!");
+		}
+	}
+	
+	/**
+	 * CASO 15
+	 * Calcular créditos de um estágio que existe.
+	 */
+	@Test
+	void testCalcularCreditosEstagioExistente() {
+		acBase.criarAtividadeEstagio("000.000.000-01", "00000001", "ESTÁGIO", 300, "-");
+		assertEquals(5, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
+		
+		acBase.criarAtividadeEstagio("000.000.000-02", "00000002", "ESTÁGIO", 50, "-");
+		assertEquals(0, acBase.calcularCreditos("000.000.000-02", "00000002", "000.000.000-02_1"));
+	}
+	
+	/**
+	 * CASO 16
+	 * Calcular créditos de um estágio que não existe.
+	 */
+	@Test
+	void testCalcularCreditosEstagioInexistente() {
+		try {
+			acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1");
+			fail();
+		}catch(IllegalArgumentException iae) {
+			assertEquals(iae.getMessage(), "CÓDIGO INVÁLIDO!");
+		}
+	}
+	
+	/**
+	 * CASO 17
+	 * Calcular créditos de uma pesquisa que existe.
+	 */
+	@Test
+	void testCalcularCreditosPesquisaExtensãoExistente() {
+		acBase.criarAtividadePesquisaExtensao("000.000.000-00", "00000000", "PESQUISA", 12, "-");
+		assertEquals(10, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
+		
+		acBase.criarAtividadePesquisaExtensao("000.000.000-01", "00000001", "PESQUISA", 10, "-");
+		assertEquals(0, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
+	}
+	
+	/**
+	 * CASO 18
+	 * Calcular créditos de uma pesquisa que não existe.
+	 */
+	@Test
+	void testCalcularCreditosPesquisaExtensãoInexistente() {
+		try {
+			acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1");
+			fail();
+		}catch(IllegalArgumentException iae) {
+			assertEquals(iae.getMessage(), "CÓDIGO INVÁLIDO!");
+		}
+	}
+	
+	/**
+	 * CASO 19
+	 * Calcular créditos de uma publicação que existe
+	 */
+	@Test
+	void testCalcularCreditosPublicacaoExistente() {
+		acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PESQUISA", 0, "TITULO", "*", "A1");
+		assertEquals(4, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
+		
+		acBase.criarAtividadePublicacao("000.000.000-01", "00000001", "PESQUISA", 0, "TITULO", "*", "A2");
+		assertEquals(3, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
+		
+		acBase.criarAtividadePublicacao("000.000.000-02", "00000002", "PESQUISA", 0, "TITULO", "*", "A3");
+		assertEquals(2, acBase.calcularCreditos("000.000.000-02", "00000002", "000.000.000-02_1"));
+	}
+	
+	/**
+	 * CASO 20
+	 * Calcular créditos de uma publicação que não existe.
+	 */
+	@Test
+	void testCalcularCreditosPublicacaoInexistente() {
+		try {
+			acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1");
+			fail();
+		}catch(IllegalArgumentException iae) {
+			assertEquals(iae.getMessage(), "CÓDIGO INVÁLIDO!");
+		}
 	}
 
 }
