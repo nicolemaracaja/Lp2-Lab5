@@ -30,8 +30,8 @@ public class RelatorioResumidoPorTipo extends Relatorio{
      * @param creditos Créditos da atividade.
      * @param maximos Máximo de créditos da atividade.
      */
-    public RelatorioResumidoPorTipo(String nome, String cpf, String matricula, String tipo, double creditos, double maximos) {
-        super(nome, cpf, matricula);
+    public RelatorioResumidoPorTipo(UsuarioController uc, String nome, String cpf, String matricula, String tipo, double creditos, double maximos) {
+        super(uc, nome, cpf, matricula);
         this.tipo = tipo;
         this.creditos = creditos;
         this.maximos = maximos;

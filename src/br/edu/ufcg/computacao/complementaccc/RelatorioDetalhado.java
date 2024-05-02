@@ -20,8 +20,8 @@ public class RelatorioDetalhado extends Relatorio{
 	 * @param matricula Matrícula do estudante.
 	 * @param atividades Atividades.
 	 */
-    public RelatorioDetalhado(String nome, String cpf, String matricula, List<Atividade> atividades) {
-        super(nome, cpf, matricula);
+    public RelatorioDetalhado(UsuarioController uc, String nome, String cpf, String matricula, List<Atividade> atividades) {
+        super(uc, nome, cpf, matricula);
         this.atividades = atividades;
     }
 

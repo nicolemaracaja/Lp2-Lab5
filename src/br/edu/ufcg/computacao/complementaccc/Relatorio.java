@@ -7,6 +7,11 @@ package br.edu.ufcg.computacao.complementaccc;
 public abstract class Relatorio {
 
 	/**
+	 * UsuarioController.
+	 */
+	protected UsuarioController uc;
+	
+	/**
 	 * Nome do estudante.
 	 */
 	protected String nome;
@@ -14,12 +19,12 @@ public abstract class Relatorio {
 	/**
 	 * CPF do estudante.
 	 */
-    protected String cpf;
-    
-    /**
-     * Matrícula do estudante.
-     */
-    protected String matricula;
+	protected String cpf;
+	
+	/**
+	 * Matrícula do estudante.
+	 */
+	protected String matricula;
 
     /**
      * Constrói o relatório.
@@ -27,10 +32,12 @@ public abstract class Relatorio {
      * @param cpf CPF do estudante.
      * @param matricula Matrícula do estudante.
      */
-    public Relatorio(String nome, String cpf, String matricula) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.matricula = matricula;
+    public Relatorio(UsuarioController uc, String nome, String cpf, String matricula) {
+    	this.uc = uc;
+    	Estudante estudante = uc.getEstudantes().get(cpf);
+        this.nome = estudante.getNome();
+        this.cpf = estudante.getCpf();
+        this.matricula = estudante.getMatricula();
     }
 
     /**

@@ -93,8 +93,8 @@ public class AtividadeController {
      * @param unidadeAcumulada Unidade acumulada (0).
      * @param tituloArtigo Título do artigo.
      * @param doi DOI.
-     * @param qualis 
-     * @return
+     * @param qualis Qualis.
+     * @return codigoATV Código da atividade.
      */
     public String criarAtividadePublicacao(String cpf, String senha, String tipo, int unidadeAcumulada, String tituloArtigo, String doi, String qualis) {
     	Estudante estudante = estudantes.get(cpf);

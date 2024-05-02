@@ -26,8 +26,8 @@ public class RelatorioResumido extends Relatorio{
      * @param creditosPorTipo Créditos por tipo.
      * @param creditosMaximosPorTipo Créditos máximos por tipo.
      */
-    public RelatorioResumido(String nome, String cpf, String matricula, Map<String, Double> creditosPorTipo, Map<String, Double> creditosMaximosPorTipo) {
-        super(nome, cpf, matricula);
+    public RelatorioResumido(UsuarioController uc, String nome, String cpf, String matricula, Map<String, Double> creditosPorTipo, Map<String, Double> creditosMaximosPorTipo) {
+        super(uc, nome, cpf, matricula);
         this.creditosPorTipo = creditosPorTipo;
         this.creditosMaximosPorTipo = creditosMaximosPorTipo;
         this.creditosMaximosPorTipo = new HashMap<>();
