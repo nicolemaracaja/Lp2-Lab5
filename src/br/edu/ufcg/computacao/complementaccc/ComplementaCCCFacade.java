@@ -278,18 +278,44 @@ public class ComplementaCCCFacade {
 		return ac.calcularCreditos(cpf, senha, codigoAtividade);
 	}
 	
+	/**
+	 * Cria um relatório completo.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @return
+	 */
 	int criarRelatorioCompleto(String cpf, String senha) {
 		return 0;
 	}
 	
+	/**
+	 * Cria um relatório resumido.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @return 
+	 */
 	int criarRelatorioResumido(String cpf, String senha) {
 		return 0;
 	}
 	
+	/**
+	 * Crie um relatório por atividades.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param tipoAtividade Tipo da atividade.
+	 * @return 
+	 */
 	int criarRelatorioPorATV(String cpf, String senha, String tipoAtividade) {
 		return 0;
 	}
 	
+	/**
+	 * Exibe o relatório.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param indexRelatorio Índice do relatório.
+	 * @return
+	 */
 	String exibirRelatorio(String cpf, String senha, int indexRelatorio) {
 		return "";
 	}

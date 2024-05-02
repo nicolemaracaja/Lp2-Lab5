@@ -235,13 +235,13 @@ class AtividadeControllerTest {
 	 */
 	@Test
 	void testCalcularCreditosPublicacaoExistente() {
-		acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PESQUISA", 0, "TITULO", "*", "A1");
-		assertEquals(4, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
+		acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PUBLICACAO", 0, "TITULO", "*", "A1");
+		assertEquals(1, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
 		
-		acBase.criarAtividadePublicacao("000.000.000-01", "00000001", "PESQUISA", 0, "TITULO", "*", "A2");
-		assertEquals(3, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
+		acBase.criarAtividadePublicacao("000.000.000-01", "00000001", "PUBLICACAO PERIODICO", 0, "TITULO", "*", "A2");
+		assertEquals(4, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
 		
-		acBase.criarAtividadePublicacao("000.000.000-02", "00000002", "PESQUISA", 0, "TITULO", "*", "A3");
+		acBase.criarAtividadePublicacao("000.000.000-02", "00000002", "PUBLICACAO CONFERENCIA", 0, "TITULO", "*", "A3");
 		assertEquals(2, acBase.calcularCreditos("000.000.000-02", "00000002", "000.000.000-02_1"));
 	}
 	

@@ -10,7 +10,7 @@ public class AtividadeController {
 	/**
 	 * Mapa de estudantes.
 	 */
-	private Map<String, Estudante> estudantes;
+	private Map<String, Estudante> estudantes; 
 	
 	/**
 	 * Constrói o Controller de atividades.

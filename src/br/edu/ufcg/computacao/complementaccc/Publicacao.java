@@ -53,15 +53,20 @@ public class Publicacao extends Atividade {
      */
     @Override
     public int calcularCreditos() {
-    	switch (qualis.toUpperCase()) {
-        case "A1": 
-        	return 4;
-        case "A2": 
-        	return 3;
-        case "A3": 
-        	return 2;
-        default: 
-        	return 1;
+    	if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A1")) {
+    		return 4;
+    	}else if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A2")) {
+    		return 4;
+    	}else if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A3")) {
+    		return 3;
+    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A1")) {
+    		return 1;
+    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A2")) {
+    		return 3;
+    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A3")) {
+    		return 2;
+    	}else {
+    		return 1;
     	}
     }
     
