@@ -10,35 +10,34 @@ public class AtividadeController {
 	/**
 	 * Mapa de estudantes.
 	 */
-	private HashMap<String, Estudante> estudantes;
+	private Map<String, Estudante> estudantes;
 	
 	/**
 	 * Constrói o Controller de atividades.
 	 */
-	public AtividadeController() {
-		this.estudantes = new HashMap<>();
+	public AtividadeController(Map<String, Estudante> estudantes) {
+		this.estudantes = estudantes;
 	}
 	
 	/**
 	 * Cria uma atividade do tipo MONITORIA.
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
-	 * @param descricao Descrição da atividade.
-	 * @param linkComprovacao Link para o documento comprobatório.
-	 * @param disciplina Disciplina que o estudante aplica monitoria.
-	 * @param semestreLetivo Semestre que o estudante aplica monitoria;
-	 * @return codigo Código da atividade.
+	 * @param tipo Tipo da atividade.
+	 * @param unidadeAcumulada Unidade acumulada (semestres).
+	 * @param disciplina Disciplina.
+	 * @return codigoATV Código da atividade.
 	 */
-	public String criarAtividadeMonitoria(String cpf, String senha, String descricao, String linkComprovacao, String disciplina, int semestreLetivo) {
+	public String criarAtividadeMonitoria(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
         Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
         String codigo = cpf + "_" + (estudante.getAtividades().size() + 1);
-        Monitoria monitoria = new Monitoria(descricao, codigo, linkComprovacao, disciplina, semestreLetivo);
+        Monitoria monitoria = new Monitoria(tipo, unidadeAcumulada, disciplina);
 
-        estudante.adicionarAtividade(monitoria);
+        estudante.adicionarAtividade(codigo, monitoria);
         return codigo;
     }
 
@@ -46,43 +45,43 @@ public class AtividadeController {
 	 * Cria uma atividade do tipo ESTÁGIO.
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
-	 * @param descricao Descrição da atividade.
-	 * @param linkComprovacao Link para o documento comprobatório.
-	 * @param cargaHoraria Carga horária do estágio.
-	 * @return codigo Código da atividade.
+	 * @param tipo Tipo da atividade.
+	 * @param unidadeAcumulada Unidade acumulada (horas).
+	 * @param disciplina Disciplina.
+	 * @return codigoATV Código da atividade.
 	 */
-    public String criarAtividadeEstagio(String cpf, String senha, String descricao, String linkComprovacao, int cargaHoraria) {
+    public String criarAtividadeEstagio(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
         String codigo = cpf + "_" + (estudante.getAtividades().size() + 1);
-        Estagio estagio = new Estagio(descricao, codigo, linkComprovacao, cargaHoraria);
+        Estagio estagio = new Estagio(tipo, unidadeAcumulada, disciplina);
 
-        estudante.adicionarAtividade(estagio);
+        estudante.adicionarAtividade(codigo, estagio);
         return codigo;
     }
 
     /**
      * Cria uma atividade do tipo PESQUISA DE EXTENSÃO.
      * @param cpf CPF do estudante.
-	 * @param senha Senha do estudante.
-	 * @param descricao Descrição da atividade.
-	 * @param linkComprovacao Link para o documento comprobatório.
-     * @param meses Meses da pesquisa de extensão.
-     * @return codigo Código da atividade.
+     * @param senha Senha do estudante.
+     * @param tipo Tipo da atividade.
+     * @param unidadeAcumulada Unidade acumulada (meses).
+     * @param disciplina Disciplina.
+     * @return codigoATV Código da atividade.
      */
-    public String criarAtividadePesquisaExtensao(String cpf, String senha, String descricao, String linkComprovacao, int meses) {
+    public String criarAtividadePesquisaExtensao(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
         String codigo = cpf + "_" + (estudante.getAtividades().size() + 1);
-        PesquisaExtensao pesquisaExtensao = new PesquisaExtensao(descricao, codigo, linkComprovacao, meses);
+        PesquisaExtensao pesquisaExtensao = new PesquisaExtensao(tipo, unidadeAcumulada, disciplina);
 
-        estudante.adicionarAtividade(pesquisaExtensao);
+        estudante.adicionarAtividade(codigo, pesquisaExtensao);
         return codigo;
     }
 
@@ -90,26 +89,26 @@ public class AtividadeController {
      * Cria uma atividade do tipo PUBLICAÇÃO.
      * @param cpf CPF do estudante.
      * @param senha Senha do estudante.
-     * @param descricao Descrição da atividade.
-     * @param linkComprovacao Link para o documento comprobatório.
-     * @param tituloArtigo Título do artigo que será publicado.
+     * @param tipo Tipo da atividade.
+     * @param unidadeAcumulada Unidade acumulada (0).
+     * @param tituloArtigo Título do artigo.
      * @param doi DOI.
-     * @param qualis Qualis.
-     * @return codigo Código da atividade.
+     * @param qualis 
+     * @return
      */
-    public String criarAtividadePublicacao(String cpf, String senha, String descricao, String linkComprovacao, String tituloArtigo, String doi, String qualis) {
+    public String criarAtividadePublicacao(String cpf, String senha, String tipo, int unidadeAcumulada, String tituloArtigo, String doi, String qualis) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
         String codigo = cpf + "_" + (estudante.getAtividades().size() + 1);
-        Publicacao publicacao = new Publicacao(descricao, codigo, linkComprovacao, tituloArtigo, doi, qualis);
+        Publicacao publicacao = new Publicacao(tipo, unidadeAcumulada, tituloArtigo, doi, qualis);
 
-        estudante.adicionarAtividade(publicacao);
+        estudante.adicionarAtividade(codigo, publicacao);
         return codigo;
     }
-
+    
     /**
      * Altera a descrição da atividade.
      * @param cpf CPF do estudante.
@@ -120,17 +119,38 @@ public class AtividadeController {
      */
     public boolean alterarDescricaoAtividade(String cpf, String senha, String codigoAtividade, String novaDescricao) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
-        for (Atividade atividade : estudante.getAtividades()) {
-            if (atividade.getCodigo().equals(codigoAtividade)) {
-                atividade.setDescricao(novaDescricao);
-                return true;
-            }
+        Map<String, Atividade> atividadesMap = estudante.getAtividades();
+        Atividade atividade = atividadesMap.get(codigoAtividade);
+
+        if (atividade != null) {
+            // Se a atividade for encontrada, atualize o link de comprovação
+            atividade.setDescricao(novaDescricao);
+            return true;
         }
-        return false;
+
+        return false; // Atividade não encontrada
+    }
+    
+    /**
+     * Pega a descrição da atividade.
+     * @param atividade Atividade.
+     * @return descrição Descrição da atividade.
+     */
+    public String getDescricaoAtividade(Atividade atividade) {
+    	return atividade.getDescricao();
+    }
+    
+    /**
+     * Pega o link comprobatório da atividade.
+     * @param atividade Atividade.
+     * @return link Link comprobatório..
+     */
+    public String getComprovacaoAtividade(Atividade atividade) {
+    	return atividade.getLinkComprovacao();
     }
 
     /**
@@ -143,17 +163,20 @@ public class AtividadeController {
      */
     public boolean alterarComprovacaoAtividade(String cpf, String senha, String codigoAtividade, String novoLinkComprovacao) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
-        for (Atividade atividade : estudante.getAtividades()) {
-            if (atividade.getCodigo().equals(codigoAtividade)) {
-                atividade.setLinkComprovacao(novoLinkComprovacao);
-                return true;
-            }
+        Map<String, Atividade> atividadesMap = estudante.getAtividades();
+        Atividade atividade = atividadesMap.get(codigoAtividade);
+
+        if (atividade != null) {
+            // Se a atividade for encontrada, atualize o link de comprovação
+            atividade.setLinkComprovacao(novoLinkComprovacao);
+            return true;
         }
-        return false;
+
+        return false; // Atividade não encontrada
     }
 
     /**
@@ -165,11 +188,12 @@ public class AtividadeController {
      */
     public double calcularCreditos(String cpf, String senha, String codigoAtividade) {
     	Estudante estudante = estudantes.get(cpf);
-        if (estudante.autenticar(senha)) {
+        if (!estudante.autenticar(senha)) {
             throw new IllegalArgumentException("AUTENTICAÇÃO FALHOU!");
         }
 
-        for (Atividade atividade : estudante.getAtividades()) {
+        ArrayList<Atividade> atividades = new ArrayList<>(estudante.getAtividades().values());
+        for (Atividade atividade : atividades) {
             if (atividade.getCodigo().equals(codigoAtividade)) {
                 return atividade.calcularCreditos();
             }
@@ -177,3 +201,19 @@ public class AtividadeController {
         throw new IllegalArgumentException("CÓDIGO INVÁLIDO!");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,15 +6,15 @@ package br.edu.ufcg.computacao.complementaccc;
  */
 public class Estagio extends Atividade {
 	
-	/**
-	 * Carga horária cumprida.
-	 */
-    private int horas;
-    
     /**
      * Máximo de créditos possíveis de conseguir no Estágio.
      */
     private int maxCreditos = 18;
+    
+    /**
+     * Disciplina.
+     */
+    private String disciplina;
 
     /**
      * Constrói a atividade Estágio.
@@ -24,20 +24,20 @@ public class Estagio extends Atividade {
      * @param linkComprovacao Link do documento comprobatório do Estágio.
      * @param horas Horas cumpridas no estágio.
      */
-    public Estagio(String codigo, String descricao, String linkComprovacao, int horas) {
-        super(codigo, "ESTÁGIO", descricao, linkComprovacao);
-        if (horas < 0) {
-            throw new IllegalArgumentException("HORAS NÃO PODEM SER NEGATIVAS!");
+    public Estagio(String tipo, int unidadeAcumulada, String disciplina) {
+        super(tipo, unidadeAcumulada);
+        if (disciplina.isBlank() || disciplina.isEmpty()) {
+            throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
         }
-        this.horas = horas;
+        this.disciplina = disciplina;
     }
-
+    
     /**
-     * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 18 créditos.
+     * Calcula a quantidade de créditos obtida pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
     public int calcularCreditos() {
-        return Math.min(horas / 60, maxCreditos); //1 crédito a cada 60 horas.
+        return Math.min(unidadeAcumulada / 60, maxCreditos); //1 crédito a cada 60 horas.
     }
     
     /**
@@ -45,6 +45,6 @@ public class Estagio extends Atividade {
      */
     @Override
     public String toString() {
-    	return "Estágio" + "\n" + "Horas: " + this.horas;
+    	return "Estágio" + "\n" + "Horas: " + this.unidadeAcumulada;
     }
 }

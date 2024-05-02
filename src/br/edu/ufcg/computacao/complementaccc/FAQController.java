@@ -27,9 +27,9 @@ public class FAQController {
      * Construtor de FAQController.
      * @param admin Administrador do sistema.
      */
-    public FAQController() {
+    public FAQController(Admin admin) {
         this.faq = new ArrayList<>();
-        this.admin = new Admin("admin", "000.000.000-00", "00000000");
+        this.admin = admin;
         this.itemIndex = 0;
 
     }
@@ -42,6 +42,14 @@ public class FAQController {
      */
     public boolean autenticar(String cpf, String senha) {
         return admin.getCpf().equals(cpf) && admin.autenticar(senha);
+    }
+    
+    /**
+     * Pega o índice do item da FAQ.
+     * @return indexItem índice do item.
+     */
+    public int getIndexItem() {
+    	return this.itemIndex;
     }
 
     /**

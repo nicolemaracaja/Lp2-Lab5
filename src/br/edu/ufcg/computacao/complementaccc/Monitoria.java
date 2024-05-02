@@ -12,11 +12,6 @@ public class Monitoria extends Atividade {
     private String disciplina;
     
     /**
-     * Semestre que o usuário está aplicando a monitoria.
-     */
-    private int semestre;
-    
-    /**
      * Máximo de créditos possíveis de conseguir na monitoria.
      */
     private int maxCreditos = 16;
@@ -28,18 +23,14 @@ public class Monitoria extends Atividade {
      * @param descricao Descrição da atividade.
      * @param linkComprovacao Link do documento comprobatório da atividade.
      * @param disciplina Disciplina que o usuário aplica monitoria.
-     * @param semestre Semestre que o usuário está aplicando a monitoria.
+     * @param semestre Semestre.
      */
-    public Monitoria(String codigo, String descricao, String linkComprovacao, String disciplina, int semestre) {
-        super(codigo, "MONITORIA", descricao, linkComprovacao);
+    public Monitoria(String tipo, int unidadeAcumulada, String disciplina) {
+        super(tipo, unidadeAcumulada);
         if (disciplina.isBlank() || disciplina.trim().isEmpty()) {
             throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
         }
-        if (semestre < 0) {
-            throw new IllegalArgumentException("SEMESTRE INVÁLIDO!");
-        }
         this.disciplina = disciplina;
-        this.semestre = semestre;
     }
 
     /**
@@ -47,7 +38,7 @@ public class Monitoria extends Atividade {
      */
     @Override
     public int calcularCreditos() {
-        return Math.min(semestre * 4, maxCreditos); //não pode ultrapassar 16 créditos.
+        return Math.min(unidadeAcumulada * 4, maxCreditos); //não pode ultrapassar 16 créditos.
     }
     
     /**
@@ -55,7 +46,7 @@ public class Monitoria extends Atividade {
      */
     @Override
     public String toString() {
-    	return "Monitoria" + "\n" + "Disciplina: " + this.disciplina + "\n" + "Semestre: " + this.semestre;
+    	return "Monitoria" + "\n" + "Disciplina: " + this.disciplina;
     }
 
 }

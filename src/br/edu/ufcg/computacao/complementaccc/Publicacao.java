@@ -31,8 +31,8 @@ public class Publicacao extends Atividade {
      * @param doi DOI.
      * @param qualis Qualis.
      */
-    public Publicacao(String codigo, String descricao, String linkComprovacao, String tituloArtigo, String doi, String qualis) {
-        super(codigo, "PUBLICAÇÃO", descricao, linkComprovacao);
+    public Publicacao(String tipo, int unidadeAcumulada, String tituloArtigo, String doi, String qualis) {
+        super(tipo, unidadeAcumulada);
         if (tituloArtigo.isBlank() || tituloArtigo.trim().isEmpty()) {
             throw new IllegalArgumentException("TÍTULO DO ARTIGO INVÁLIDO!");
         }
@@ -42,6 +42,7 @@ public class Publicacao extends Atividade {
         if (qualis.isBlank() || qualis.trim().isEmpty()) {
             throw new IllegalArgumentException("QUALIS INVÁLIDO!");
         }
+        this.unidadeAcumulada = 0;
         this.tituloArtigo = tituloArtigo;
         this.doi = doi;
         this.qualis = qualis;

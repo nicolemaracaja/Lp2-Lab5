@@ -6,15 +6,15 @@ package br.edu.ufcg.computacao.complementaccc;
  */
 public class PesquisaExtensao extends Atividade {
 	
-	/**
-	 * Quantidade de meses que o usuário participa da atividade de extensão.
-	 */
-    private int meses;
-    
     /**
      * Máximo de créditos possíveis de conseguir na atividade de extensão.
      */
     private int maxCreditos = 18;
+    
+    /**
+     * Disciplina.
+     */
+    private String disciplina;
 
     /**
      * Constrói a Pesquisa de Extensão.
@@ -24,20 +24,20 @@ public class PesquisaExtensao extends Atividade {
      * @param linkComprovacao Link do documento comprobatório da pesquisa de extensão.
      * @param meses Quantidade de meses de duração da atividade de extensão.
      */
-    public PesquisaExtensao(String codigo, String descricao, String linkComprovacao, int meses) {
-        super(codigo, "PESQUISA DE EXTENSÃO", descricao, linkComprovacao);
-        if (meses < 0) {
-            throw new IllegalArgumentException("NÚMERO DE MESES NÃO PODE SER NEGATIVO!");
+    public PesquisaExtensao(String tipo, int unidadeAcumulada, String disciplina) {
+        super(tipo, unidadeAcumulada);
+        if (disciplina.isBlank() || disciplina.isEmpty()) {
+        	throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
         }
-        this.meses = meses;
+        this.disciplina = disciplina;
     }
-
+    
     /**
-     * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 18 créditos.
+     * Calcula a quantidade de créditos obtidos pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
     public int calcularCreditos() {
-        return Math.min((meses / 12) * 10, maxCreditos);
+        return Math.min((unidadeAcumulada / 12) * 10, maxCreditos);
     }
     
     /**
@@ -45,6 +45,6 @@ public class PesquisaExtensao extends Atividade {
      */
     @Override
     public String toString() {
-    	return "Pesquisa de Extensão" + "\n" + "Quantidade de meses: " + this.meses;
+    	return "Pesquisa de Extensão" + "\n" + "Quantidade de meses: " + this.unidadeAcumulada;
     }
 }

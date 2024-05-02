@@ -27,29 +27,29 @@ public abstract class Atividade {
 	protected String linkComprovacao;
 	
 	/**
+	 * Unidade acumulada.
+	 */
+	protected int unidadeAcumulada;
+	
+	/**
 	 * Constrói a atividade.
 	 * @param tipo Tipo da atividade.
 	 * @param descricao Descrição da atividade.
 	 * @param codigo Código da atividade.
 	 * @param linkComprovacao Link
 	 */
-	public Atividade(String tipo, String descricao, String codigo, String linkComprovacao) {
+	public Atividade(String tipo, int unidadeAcumulada) {
 		if (tipo.isBlank() || tipo.trim().isEmpty()) {
             throw new IllegalArgumentException("TIPO INVÁLIDO!");
     }
-		if (descricao.isBlank() || descricao.trim().isEmpty()) {
-	            throw new IllegalArgumentException("DESCRIÇÃO INVÁLIDA!");
-	    }
-		if (codigo.isBlank() || codigo.trim().isEmpty()) {
-            throw new IllegalArgumentException("CÓDIGO INVÁLIDO!");
-        }
-        if (linkComprovacao == null || linkComprovacao.trim().isEmpty()) {
-            throw new IllegalArgumentException("LINK DE COMPROVAÇÃO INVÁLIDO!");
-        }
+		if (unidadeAcumulada < 0) {
+			throw new IllegalArgumentException("VALOR NUMÉRICO INVÁLIDO!");
+		}
 		this.tipo = tipo;
-		this.descricao = descricao;
-		this.codigo = codigo;
-		this.linkComprovacao = linkComprovacao;
+		this.unidadeAcumulada = unidadeAcumulada;
+		this.codigo = "";
+		this.descricao = "";
+		this.linkComprovacao = "";
 	}
 
 	/**
@@ -81,7 +81,7 @@ public abstract class Atividade {
 	 * @param descricao Nova descrição da atividade.
 	 */
 	public void setDescricao(String novaDescricao) {
-		if (descricao .isBlank() || descricao.trim().isEmpty()) {
+		if (novaDescricao.isBlank() || novaDescricao.trim().isEmpty()) {
             throw new IllegalArgumentException("DESCRIÇÃO INVÁLIDA!");
         }
 		this.descricao = novaDescricao;
@@ -100,7 +100,7 @@ public abstract class Atividade {
 	 * @param linkComprovacao Novo link do documento comprobatório.
 	 */
 	public void setLinkComprovacao(String novoLinkComprovacao) {
-		if (linkComprovacao.isBlank() || linkComprovacao.trim().isEmpty()) {
+		if (novoLinkComprovacao.isBlank() || novoLinkComprovacao.trim().isEmpty()) {
             throw new IllegalArgumentException("LINK DE COMPROVAÇÃO INVÁLIDO!");
         }
 		this.linkComprovacao = novoLinkComprovacao;

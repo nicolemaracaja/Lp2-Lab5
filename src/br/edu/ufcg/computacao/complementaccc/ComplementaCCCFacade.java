@@ -19,6 +19,11 @@ public class ComplementaCCCFacade {
 	private FAQController fc;
 	
 	/**
+	 * Controller de Atividade, para manipular as funções da Atividade.
+	 */
+	private AtividadeController ac;
+	
+	/**
 	 * Administrador do sistema, que será instanciado em UsuárioController.
 	 */
 	private Admin admin = uc.getAdmin();
@@ -28,6 +33,8 @@ public class ComplementaCCCFacade {
 	 */
 	public ComplementaCCCFacade() {
 		this.uc = new UsuarioController();
+		this.fc = new FAQController(admin);
+		this.ac = new AtividadeController(uc.getEstudantes());
 	}
 	
 	/**
@@ -183,33 +190,92 @@ public class ComplementaCCCFacade {
 		return fc.buscarItemFAQ(tags);
 	}
 	
-	String criarAtividadeMonitoriaEmEstudante(String cpf, int senha, String tipo, int unidadeAcumulada, String disciplina) {
-		
-		return "";
+	/**
+	 * Cria atividade do tipo monitoria.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param tipo Tipo da atividade.
+	 * @param unidadeAcumulada Quantidade de semestres de monitoria.
+	 * @param disciplina Disciplina que o estudante aplica monitoria.
+	 * @return codigoATV Código da atividade.
+	 */
+	String criarAtividadeMonitoriaEmEstudante(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
+		return ac.criarAtividadeMonitoria(cpf, senha, tipo, unidadeAcumulada, disciplina);		
 	}
 	
-	boolean alterarDescricaoAtividade(String cpf, int senha, String codigoAtividade, String descricao) {
-		return true;
+	/**
+	 * Altera a descrição da atividade.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param codigoAtividade Código da atividade.
+	 * @param descricao Nova descrição da atividade.
+	 * @return true, se alterar, se não, false.
+	 */
+	boolean alterarDescricaoAtividade(String cpf, String senha, String codigoAtividade, String descricao) {
+		return ac.alterarDescricaoAtividade(cpf, senha, codigoAtividade, descricao);
 	}
 	
-	boolean alterarComprovacaoAtividade(String cpf, int senha, String codigoAtividade, String linkComprovacao) {
-		return true;
+	/**
+	 * Altera o link do documento comprobatório da atividade.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param codigoAtividade Código da atividade.
+	 * @param linkComprovacao Novo link de comprovação da atividade.
+	 * @return true, se alterar, se não, false.
+	 */
+	boolean alterarComprovacaoAtividade(String cpf, String senha, String codigoAtividade, String linkComprovacao) {
+		return ac.alterarComprovacaoAtividade(cpf, senha, codigoAtividade, linkComprovacao);
 	}
 	
-	String criarAtividadePesquisaExtensaoEmEstudante(String cpf, int senha, String tipo, int unidadeAcumulada, String disciplina) {
-		return "";
+	/**
+	 * Cria atividade do tipo pesquisa de extensão.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param tipo Tipo da atividade.
+	 * @param unidadeAcumulada Quantidade de meses que a pesquisa de extensão dura.
+	 * @param disciplina Disciplina.
+	 * @return codigoATV Código da atividade.
+	 */
+	String criarAtividadePesquisaExtensaoEmEstudante(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
+		return ac.criarAtividadePesquisaExtensao(cpf, senha, tipo, unidadeAcumulada, disciplina);
 	}
 	
-	String criarAtividadeEstagioEmEstudante(String cpf, int senha, String tipo, int unidadeAcumulada, String disciplina) {
-		return "";
+	/**
+	 * Cria atividade do tipo estágio.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param tipo Tipo da atividade.
+	 * @param unidadeAcumulada Quantidade de horas do estágio.
+	 * @param disciplina Disciplina.
+	 * @return codigoATV Código da atividade.
+	 */
+	String criarAtividadeEstagioEmEstudante(String cpf, String senha, String tipo, int unidadeAcumulada, String disciplina) {
+		return ac.criarAtividadeEstagio(cpf, senha, tipo, unidadeAcumulada, disciplina);
 	}
 	
-	String criarAtividadePublicacaoEmEstudante(String cpf, int senha, String tipo, String tituloArtigo, String doi, String qualis) {
-		return "";
+	/**
+	 * Cria atividade do tipo publicação.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param tipo Tipo da atividade.
+	 * @param tituloArtigo Título do artigo.
+	 * @param doi DOI.
+	 * @param qualis Qualis
+	 * @return codigoATV Código da atividade.
+	 */
+	String criarAtividadePublicacaoEmEstudante(String cpf, String senha, String tipo, String tituloArtigo, String doi, String qualis) {
+		return ac.criarAtividadePublicacao(cpf, senha, tipo, 0, tituloArtigo, doi, qualis);
 	}
 	
-	double creditosAtividade(String cpf, int senha, String codigoAtividade) {
-		return 0;
+	/**
+	 * Cálcula os créditos da atividade.
+	 * @param cpf CPF do estudante.
+	 * @param senha Senha do estudante.
+	 * @param codigoAtividade Código da atividade.
+	 * @return creditos Quantidade de créditos.
+	 */
+	double creditosAtividade(String cpf, String senha, String codigoAtividade) {
+		return ac.calcularCreditos(cpf, senha, codigoAtividade);
 	}
 	
 	int criarRelatorioCompleto(String cpf, String senha) {

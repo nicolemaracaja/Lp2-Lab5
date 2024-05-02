@@ -6,12 +6,12 @@ import java.util.*;
  * Classe UsuarioController, que manipula as funções relacionadas ao usuário.
  * @author Nicole Brito Maracajá - 123111413.
  */
-public class UsuarioController {
+public class UsuarioController{
 
 	/**
-	 * Lista de estudantes cadastrados no sistema.
+	 * Mapa de estudantes cadastrados no sistema.
 	 */
-	private List<Estudante> estudantes;
+	private Map<String, Estudante> estudantes;
 	
 	/**
 	 * Administrador do sistema.
@@ -22,7 +22,7 @@ public class UsuarioController {
 	 * Constrói o UsuárioController.
 	 */
 	public UsuarioController() {
-		this.estudantes = new ArrayList<>();
+		this.estudantes = new HashMap<>();
 		this.admin = new Admin("admin", "000.000.000-00", "00000000");
 	}
 		
@@ -45,12 +45,12 @@ public class UsuarioController {
 			throw new IllegalArgumentException("SENHA INVÁLIDA!");
 		}
 		
-        for (Estudante estudante : estudantes) {
+        for (Estudante estudante : estudantes.values()) {
             if (estudante.cpf.equals(cpf)) {
                 throw new IllegalArgumentException("CPF JÁ CADASTRADO!"); // CPF já cadastrado
             }
         }
-        estudantes.add(new Estudante(nome, cpf, senha, matricula));
+        estudantes.put(cpf, new Estudante(nome, cpf, senha, matricula));
         return true; //Estudante cadastrado no sistema
     }
 
@@ -68,10 +68,13 @@ public class UsuarioController {
             throw new IllegalArgumentException("FALHA NA AUTENTICAÇÃO!"); // Não autenticado
         }
 
-        Collections.sort(estudantes, (e1, e2) -> e1.nome.compareTo(e2.nome)); // Ordenar por nome
+        ArrayList<Estudante> estudantes2 = new ArrayList<>(estudantes.values());
+        
+        Collections.sort(estudantes2); // Ordenar por nome
         String[] resultado = new String[estudantes.size()];
+        
         for (int i = 0; i < estudantes.size(); i++) {
-            resultado[i] = estudantes.get(i).getNome();
+            resultado[i] = estudantes2.get(i).getNome();
         }
         return resultado;
     }
@@ -89,7 +92,7 @@ public class UsuarioController {
 			throw new IllegalArgumentException("CPF INVÁLIDO!");
 		}
 		
-        for (Estudante estudante : estudantes) {
+        for (Estudante estudante : estudantes.values()) {
             if (estudante.cpf.equals(cpf) && estudante.autenticar(senha)) {
                 switch (tipoAlteracao.toLowerCase()) {
                     case "nome":
@@ -180,10 +183,10 @@ public class UsuarioController {
 	 * Pega os estudantes do sistema.
 	 * @return estudantes Estudantes do sistema.
 	 */
-	public List<Estudante> getEstudantes() {
+	public Map<String, Estudante> getEstudantes() {
 		return this.estudantes;
 	}
-	
+
 }
 	
    

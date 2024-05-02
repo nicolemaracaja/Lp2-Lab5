@@ -16,10 +16,12 @@ import org.junit.jupiter.api.Test;
 class FAQControllerTest {
 	
 	private FAQController fcBase;
+	private UsuarioController ucBase;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.fcBase = new FAQController();
+		this.ucBase = new UsuarioController();
+		this.fcBase = new FAQController(ucBase.getAdmin());
 	}
 
 	/**

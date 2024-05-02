@@ -6,7 +6,7 @@ import java.util.*;
  * Classe Estudante, que possui herança de Usuário.
  * @author Nicole Brito Maracajá - 123111413.
  */
-public class Estudante extends Usuario{
+public class Estudante extends Usuario implements Comparable<Estudante>{
 
 	/**
 	 * Matrícula do estudante.
@@ -14,9 +14,9 @@ public class Estudante extends Usuario{
 	protected String matricula;
 	
 	/**
-	 * Lista das atividades que o estudante participa.
+	 * Mapa das atividades que o estudante participa.
 	 */
-	protected List<Atividade> atividades;
+	protected Map<String, Atividade> atividades;
 	
 	/**
 	 * Quantidade de atividades que o estudante participa.
@@ -43,7 +43,7 @@ public class Estudante extends Usuario{
 	public Estudante(String nome, String cpf, String senha, String matricula) {
 		super(nome, cpf, senha);
 		this.matricula = matricula;
-		this.atividades = new ArrayList<>();
+		this.atividades = new HashMap<>();
 		this.atividadeCount = 0;
 	}
 
@@ -67,8 +67,8 @@ public class Estudante extends Usuario{
 	 * Adiciona uma nova atividade a lista de atividades do estudante.
 	 * @param atividade Atividade.
 	 */
-	 public void adicionarAtividade(Atividade atividade) {
-		 this.atividades.add(atividade);
+	 public void adicionarAtividade(String codigoATV, Atividade atividade) {
+		 this.atividades.put(codigoATV, atividade);
 	     this.atividadeCount++;
 	 }
 	 
@@ -76,7 +76,7 @@ public class Estudante extends Usuario{
 	  * Pega as atividades que o estudante participa.
 	  * @return atividades Atividades do estudante.
 	  */
-	 public List<Atividade> getAtividades() {
+	 public Map<String, Atividade> getAtividades() {
 	    return atividades;
 	 }
 	 
@@ -92,4 +92,12 @@ public class Estudante extends Usuario{
 	public String toString() {
 		return super.toString() + "\n" + "Matrícula: " + matricula;
 	}	
+
+	/**
+	 * Comparador de estudantes.
+	 */
+	@Override
+	public int compareTo(Estudante o) {
+		return this.nome.compareTo(o.nome);
+	}
 }
