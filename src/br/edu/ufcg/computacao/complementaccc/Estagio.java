@@ -36,14 +36,10 @@ public class Estagio extends Atividade {
      * Calcula a quantidade de créditos obtida pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
-    public int calcularCreditos() {
-    	int creditos = 0;
-    	if (this.unidadeAcumulada > 300) {
-    		 creditos = Math.min(unidadeAcumulada / 60, maxCreditos); //1 crédito a cada 60 horas.
-    	}
-		return creditos;
+    public double calcularCreditos() {
+    	return Math.min(unidadeAcumulada / 60, maxCreditos); //1 crédito a cada 60 horas.
     }
-   
+     
     /**
      * Representação textual da atividade Estágio.
      */
@@ -51,4 +47,9 @@ public class Estagio extends Atividade {
     public String toString() {
     	return "Estágio" + "\n" + "Horas: " + this.unidadeAcumulada;
     }
+
+	@Override
+	public int compareTo(Atividade o) {
+		return this.tipo.compareTo(o.tipo);
+	}
 }

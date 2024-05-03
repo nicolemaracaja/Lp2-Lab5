@@ -201,4 +201,30 @@ public class AtividadeController {
         }
         return atividade.calcularCreditos();
     }
+    
+    public double calcularCreditosAcumulados(Atividade atividade, Map<String, Atividade> atividades) {
+    	double totalCreditos = 0.0;
+        String tipoAtividade = atividade.getTipo(); //tipo da atividade
+
+        // Iterar por todas as atividades do mapa para somar créditos do mesmo tipo
+        for (Atividade a : atividades.values()) {
+            if (a.getTipo().equals(tipoAtividade)) {
+                if (tipoAtividade.equals("ESTAGIO")) {
+                    // Para estágio, somar todas as horas e calcular créditos
+                    totalCreditos += ((Estagio) a).getUnidadeAcumulada()/ 60.0; // 1 crédito para cada 60 horas
+                }else if (tipoAtividade.equals("PESQUISA_EXTENSAO")) {
+                    // Para pesquisa e extensão, somar todos os meses e calcular créditos
+                    totalCreditos += ((PesquisaExtensao) a).getUnidadeAcumulada() / 12.0 * 10.0; // 10 créditos para cada 12 meses
+                }else if (tipoAtividade.equals("MONITORIA")) {
+                    // Para monitoria, somar todos os semestres e calcular créditos
+                    totalCreditos += ((Monitoria) a).getUnidadeAcumulada() * 4.0; // 4 créditos por semestre
+                }else if (tipoAtividade.equals("PUBLICACAO") || tipoAtividade.equals("PUBLICACAO_CONFERENCIA") || tipoAtividade.equals("PUBLICACAO_PERIODICO")) {
+                    // Para publicação, somar todos os créditos pela qualidade do artigo
+                    totalCreditos += ((Publicacao) a).calcularCreditos(); // Créditos conforme qualis
+                }
+            }
+        }
+
+        return totalCreditos; // Retornar o total de créditos acumulados
+    }
 }

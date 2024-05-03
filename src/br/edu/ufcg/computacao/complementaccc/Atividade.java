@@ -4,7 +4,7 @@ package br.edu.ufcg.computacao.complementaccc;
  * Classe Atividade.
  * @author Nicole Brito Maracajá - 123111413.
  */
-public abstract class Atividade {
+public abstract class Atividade implements Comparable<Atividade>{
 
 	/**
 	 * Tipo da atividade.
@@ -57,7 +57,7 @@ public abstract class Atividade {
 	 * @return codigo Código da atividade.
 	 */
 	public String getCodigo() {
-		return codigo;
+		return this.codigo;
 	}
 	
 	/**
@@ -65,7 +65,11 @@ public abstract class Atividade {
 	 * @return tipo Tipo da atividade.
 	 */
 	public String getTipo() {
-		return tipo;
+		return this.tipo;
+	}
+	
+	public int getUnidadeAcumulada() {
+		return this.unidadeAcumulada;
 	}
 	
 	/**
@@ -73,7 +77,7 @@ public abstract class Atividade {
 	 * @return descricao Descrição da atividade.
 	 */
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 
 	/**
@@ -92,7 +96,7 @@ public abstract class Atividade {
 	 * @return linkComprovacao Link do documento comprobatório.
 	 */
 	public String getLinkComprovacao() {
-		return linkComprovacao;
+		return this.linkComprovacao;
 	}
 
 	/**
@@ -109,7 +113,7 @@ public abstract class Atividade {
 	/**
 	 * Calcula os créditos de uma respectiva atividade.
 	 */
-	public abstract int calcularCreditos();
+	public abstract double calcularCreditos();
 
 	/**
 	 * Representação textual da atividade.
@@ -117,4 +121,7 @@ public abstract class Atividade {
 	@Override
 	public abstract String toString();
 	
+	public int CompareTo(Atividade o) {
+		return this.tipo.compareTo(o.tipo);
+	}
 }

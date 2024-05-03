@@ -24,6 +24,11 @@ public class ComplementaCCCFacade {
 	private AtividadeController ac;
 	
 	/**
+	 * Controller de Relatório, para manipular as funções do Relatório.
+	 */
+	private RelatorioController rc;
+	
+	/**
 	 * Administrador do sistema, que será instanciado em UsuárioController.
 	 */
 	private Admin admin = uc.getAdmin();
@@ -282,20 +287,20 @@ public class ComplementaCCCFacade {
 	 * Cria um relatório completo.
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
-	 * @return
+	 * @return índice Índice do relatório recém-criado.
 	 */
 	int criarRelatorioCompleto(String cpf, String senha) {
-		return 0;
+		return rc.criarRelatorioCompleto(cpf, senha);
 	}
 	
 	/**
 	 * Cria um relatório resumido.
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
-	 * @return 
+	 * @return índice Índice do relatório recém-criado.
 	 */
 	int criarRelatorioResumido(String cpf, String senha) {
-		return 0;
+		return rc.criarRelatorioResumido(cpf, senha);
 	}
 	
 	/**
@@ -303,10 +308,10 @@ public class ComplementaCCCFacade {
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
 	 * @param tipoAtividade Tipo da atividade.
-	 * @return 
+	 * @return indice Índice do relatório recém-criado.
 	 */
 	int criarRelatorioPorATV(String cpf, String senha, String tipoAtividade) {
-		return 0;
+		return rc.criarRelatorioPorATV(cpf, senha, tipoAtividade);
 	}
 	
 	/**
@@ -314,10 +319,10 @@ public class ComplementaCCCFacade {
 	 * @param cpf CPF do estudante.
 	 * @param senha Senha do estudante.
 	 * @param indexRelatorio Índice do relatório.
-	 * @return
+	 * @return índice Índice do relatório recém-criado.
 	 */
 	String exibirRelatorio(String cpf, String senha, int indexRelatorio) {
-		return "";
+		return rc.exibirRelatorio(cpf, senha, indexRelatorio);
 	}
 
 }

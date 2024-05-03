@@ -64,6 +64,14 @@ public class Estudante extends Usuario implements Comparable<Estudante>{
 	}
 	
 	/**
+	 * Pega os relatórios do estudante.
+	 * @return relatorios Relatórios.
+	 */
+	public List<Relatorio> getRelatorios() {
+		return this.relatorios;
+	}
+
+	/**
 	 * Adiciona uma nova atividade a lista de atividades do estudante.
 	 * @param atividade Atividade.
 	 */
@@ -80,6 +88,10 @@ public class Estudante extends Usuario implements Comparable<Estudante>{
 	    return atividades;
 	 }
 	 
+	 /**
+	  * Adiciona um relatório à lista de relatórios.
+	  * @param relatorio Relatório.
+	  */
 	 public void adicionarRelatorio(Relatorio relatorio) {
 		 this.relatorios.add(relatorio);
 		 this.relatorioCount++;

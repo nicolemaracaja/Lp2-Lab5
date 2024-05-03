@@ -9,32 +9,18 @@ public class RelatorioResumidoPorTipo extends Relatorio{
 	/**
 	 * Tipo da atividade.
 	 */
-	private String tipo;
+	private String tipoAtividade;
 	
-	/**
-	 * Créditos da atividade.
-	 */
-    private double creditos;
-    
-    /**
-     * Máximo de créditos permitido.
-     */
-    private double maximos;
-
     /**
      * Constrói o relatório resumido por tipo.
      * @param nome Nome do estudante.
      * @param cpf CPF do estudante.
      * @param matricula Matrícula do estudante.
      * @param tipo Tipo da atividade.
-     * @param creditos Créditos da atividade.
-     * @param maximos Máximo de créditos da atividade.
      */
-    public RelatorioResumidoPorTipo(UsuarioController uc, String nome, String cpf, String matricula, String tipo, double creditos, double maximos) {
-        super(uc, nome, cpf, matricula);
-        this.tipo = tipo;
-        this.creditos = creditos;
-        this.maximos = maximos;
+	public RelatorioResumidoPorTipo(String nome, String cpf, String matricula, String tipoAtividade) {
+        super(nome, cpf, matricula);
+        this.tipoAtividade = tipoAtividade;
     }
 
     /**
@@ -42,15 +28,19 @@ public class RelatorioResumidoPorTipo extends Relatorio{
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Relatório Resumido por Tipo de Atividade:\n");
-        sb.append("Nome: ").append(nome).append("\n");
-        sb.append("CPF: ").append(cpf).append("\n");
-        sb.append("Matrícula: ").append(matricula).append("\n");
-        sb.append("Tipo: ").append(tipo)
-          .append(", Créditos acumulados: ").append(creditos)
-          .append(", Máximo permitido: ").append(maximos).append("\n");
+    	StringBuilder sb = new StringBuilder();
+        sb.append("Relatório por Atividade (").append(tipoAtividade).append(")\n");
+        sb.append("Nome: ").append(nome).append(", CPF: ").append(cpf).append(", Matrícula: ").append(matricula).append("\n");
 
-        return sb.toString();
+        double creditosAcumulados = 0.0;
+        for (Atividade atividade : atividadesRelatorio) {
+            if (atividade.getTipo().equals(tipoAtividade)) {
+                creditosAcumulados += atividade.calcularCreditos(); // Somar créditos por atividade
+            }
+        }
+
+        sb.append("Créditos Acumulados: ").append(creditosAcumulados).append("\n");
+
+        return sb.toString(); // Retorna a sumarização para o tipo de atividade
     }
 }

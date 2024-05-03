@@ -36,7 +36,7 @@ public class PesquisaExtensao extends Atividade {
      * Calcula a quantidade de créditos obtidos pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
-    public int calcularCreditos() {
+    public double calcularCreditos() {
         return Math.min((unidadeAcumulada / 12) * 10, maxCreditos);
     }
     
@@ -47,4 +47,9 @@ public class PesquisaExtensao extends Atividade {
     public String toString() {
     	return "Pesquisa de Extensão" + "\n" + "Quantidade de meses: " + this.unidadeAcumulada;
     }
+
+	@Override
+	public int compareTo(Atividade o) {
+		return this.tipo.compareTo(o.tipo);
+	}
 }

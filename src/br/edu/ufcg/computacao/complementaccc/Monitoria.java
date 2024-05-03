@@ -37,7 +37,7 @@ public class Monitoria extends Atividade {
      * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 16 créditos.
      */
     @Override
-    public int calcularCreditos() {
+    public double calcularCreditos() {
         return Math.min(unidadeAcumulada * 4, maxCreditos); //não pode ultrapassar 16 créditos.
     }
     
@@ -48,5 +48,10 @@ public class Monitoria extends Atividade {
     public String toString() {
     	return "Monitoria" + "\n" + "Disciplina: " + this.disciplina;
     }
+
+	@Override
+	public int compareTo(Atividade o) {
+		return this.tipo.compareTo(o.tipo);
+	}
 
 }

@@ -8,30 +8,14 @@ import java.util.*;
  */
 public class RelatorioResumido extends Relatorio{
 
-	/**
-	 * Créditos por tipo de atividade.
-	 */
-	private Map<String, Double> creditosPorTipo;
-	
-	/**
-	 * Créditos máximos por tipo de atividade.
-	 */
-    private Map<String, Double> creditosMaximosPorTipo;
-
     /**
      * Constrói o relatório resumido.
      * @param nome Nome do estudante. 
      * @param cpf CPF do estudante.
      * @param matricula Matrícula do estudante.
-     * @param creditosPorTipo Créditos por tipo.
-     * @param creditosMaximosPorTipo Créditos máximos por tipo.
      */
-    public RelatorioResumido(UsuarioController uc, String nome, String cpf, String matricula, Map<String, Double> creditosPorTipo, Map<String, Double> creditosMaximosPorTipo) {
-        super(uc, nome, cpf, matricula);
-        this.creditosPorTipo = creditosPorTipo;
-        this.creditosMaximosPorTipo = creditosMaximosPorTipo;
-        this.creditosMaximosPorTipo = new HashMap<>();
-        this.creditosPorTipo = new HashMap<>();
+	public RelatorioResumido(String nome, String cpf, String matricula) {
+        super(nome, cpf, matricula);
     }
 
     /**
@@ -39,21 +23,24 @@ public class RelatorioResumido extends Relatorio{
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Relatório Resumido:\n");
-        sb.append("Nome: ").append(nome).append("\n");
-        sb.append("CPF: ").append(cpf).append("\n");
-        sb.append("Matrícula: ").append(matricula).append("\n");
+    	StringBuilder sb = new StringBuilder();
+        sb.append("Relatório Resumido\n");
+        sb.append("Nome: ").append(nome)
+          .append(", CPF: ").append(cpf)
+          .append(", Matrícula: ").append(matricula).append("\n");
 
-        for (String tipo : creditosPorTipo.keySet()) {
-            double creditos = creditosPorTipo.get(tipo);
-            double maximos = creditosMaximosPorTipo.get(tipo);
+        Map<String, Double> creditosPorTipo = new HashMap<>();
+        for (Atividade atividade : atividadesRelatorio) {
+            String tipo = atividade.getTipo();
+            double creditos = atividade.calcularCreditos();
+            creditosPorTipo.merge(tipo, creditos, Double::sum); // Sumarizar créditos por tipo
 
             sb.append("Tipo: ").append(tipo)
-              .append(", Créditos acumulados: ").append(creditos)
-              .append(", Máximo permitido: ").append(maximos).append("\n");
+              .append(", Descrição: ").append(atividade.getDescricao())
+              .append(", Créditos Acumulados: ").append(creditos)
+              .append("\n");
         }
 
-        return sb.toString();
+        return sb.toString(); // Sumarização dos créditos acumulados por tipo de atividade
     }
 }

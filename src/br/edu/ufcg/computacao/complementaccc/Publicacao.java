@@ -52,18 +52,18 @@ public class Publicacao extends Atividade {
      * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 16 créditos.
      */
     @Override
-    public int calcularCreditos() {
-    	if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A1")) {
+    public double calcularCreditos() {
+    	if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A1")) {
     		return 4;
-    	}else if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A2")) {
+    	}else if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A2")) {
     		return 4;
-    	}else if (tipo.contentEquals("PUBLICACAO PERIODICO") && qualis.equals("A3")) {
+    	}else if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A3")) {
     		return 3;
-    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A1")) {
+    	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A1")) {
     		return 1;
-    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A2")) {
+    	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A2")) {
     		return 3;
-    	}else if (tipo.contentEquals("PUBLICACAO CONFERENCIA") && qualis.equals("A3")) {
+    	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A3")) {
     		return 2;
     	}else {
     		return 1;
@@ -77,4 +77,9 @@ public class Publicacao extends Atividade {
     public String toString() {
     	return "Publicação" + "\n" + "Título do artigo: " + this.tituloArtigo + "\n" + "DOI: " + this.doi + "\n" + "Qualis: " + this.qualis;
     }
+
+	@Override
+	public int compareTo(Atividade o) {
+		return this.tipo.compareTo(o.tipo);
+	}
 }

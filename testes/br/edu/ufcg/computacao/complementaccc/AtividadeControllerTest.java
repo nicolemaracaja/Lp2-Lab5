@@ -58,7 +58,7 @@ class AtividadeControllerTest {
 	@Test
 	void testCriarAtividadeEstagioAutenticacaoInvalida() {
 		try {
-			acBase.criarAtividadeEstagio("000.000.000-02", "00000000", "ESTÁGIO", 120, "LP2");
+			acBase.criarAtividadeEstagio("000.000.000-02", "00000000", "ESTAGIO", 120, "LP2");
 			fail();
 		}catch(IllegalArgumentException iae) {
 			assertEquals(iae.getMessage(), "AUTENTICAÇÃO FALHOU!");
@@ -71,7 +71,7 @@ class AtividadeControllerTest {
 	 */
 	@Test
 	void testCriarAtividadePesquisaExtensaoAutenticacaoValida() {
-		assertEquals("000.000.000-00_1", acBase.criarAtividadeMonitoria("000.000.000-00", "00000000", "PESQUISA", 12, "-"));
+		assertEquals("000.000.000-00_1", acBase.criarAtividadeMonitoria("000.000.000-00", "00000000", "PESQUISA_EXTENSAO", 12, "-"));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class AtividadeControllerTest {
 	@Test
 	void testCriarAtividadePesquisaExtensaoAutenticacaoInvalida() {
 		try {
-			acBase.criarAtividadePesquisaExtensao("000.000.000-02", "00000000", "PESQUISA", 12, "-");
+			acBase.criarAtividadePesquisaExtensao("000.000.000-02", "00000000", "PESQUISA_EXTENSAO", 12, "-");
 			fail();
 		}catch(IllegalArgumentException iae) {
 			assertEquals(iae.getMessage(), "AUTENTICAÇÃO FALHOU!");
@@ -94,7 +94,7 @@ class AtividadeControllerTest {
 	 */
 	@Test
 	void testCriarAtividadePublicacaoAutenticacaoValida() {
-		assertEquals("000.000.000-00_1", acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PUBLICAÇÃO", 0, "TITULO", "*", "A3"));
+		assertEquals("000.000.000-00_1", acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PUBLICACAO", 0, "TITULO", "*", "A3"));
 	}
 	
 	/**
@@ -104,7 +104,7 @@ class AtividadeControllerTest {
 	@Test
 	void testCriarAtividadePublicacaoAutenticacaoInvalida() {
 		try {
-			acBase.criarAtividadePublicacao("000.000.000-02", "00000000", "PUBLICAÇÃO", 0, "TITULO", "*", "A3");
+			acBase.criarAtividadePublicacao("000.000.000-02", "00000000", "PUBLICACAO", 0, "TITULO", "*", "A3");
 			fail();
 		}catch(IllegalArgumentException iae) {
 			assertEquals(iae.getMessage(), "AUTENTICAÇÃO FALHOU!");
@@ -181,10 +181,10 @@ class AtividadeControllerTest {
 	 */
 	@Test
 	void testCalcularCreditosEstagioExistente() {
-		acBase.criarAtividadeEstagio("000.000.000-01", "00000001", "ESTÁGIO", 300, "-");
+		acBase.criarAtividadeEstagio("000.000.000-01", "00000001", "ESTAGIO", 300, "-");
 		assertEquals(5, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
 		
-		acBase.criarAtividadeEstagio("000.000.000-02", "00000002", "ESTÁGIO", 50, "-");
+		acBase.criarAtividadeEstagio("000.000.000-02", "00000002", "ESTAGIO", 50, "-");
 		assertEquals(0, acBase.calcularCreditos("000.000.000-02", "00000002", "000.000.000-02_1"));
 	}
 	
@@ -208,10 +208,10 @@ class AtividadeControllerTest {
 	 */
 	@Test
 	void testCalcularCreditosPesquisaExtensãoExistente() {
-		acBase.criarAtividadePesquisaExtensao("000.000.000-00", "00000000", "PESQUISA", 12, "-");
+		acBase.criarAtividadePesquisaExtensao("000.000.000-00", "00000000", "PESQUISA_EXTENSAO", 12, "-");
 		assertEquals(10, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
 		
-		acBase.criarAtividadePesquisaExtensao("000.000.000-01", "00000001", "PESQUISA", 10, "-");
+		acBase.criarAtividadePesquisaExtensao("000.000.000-01", "00000001", "PESQUISA_EXTENSAO", 10, "-");
 		assertEquals(0, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
 	}
 	
@@ -238,10 +238,10 @@ class AtividadeControllerTest {
 		acBase.criarAtividadePublicacao("000.000.000-00", "00000000", "PUBLICACAO", 0, "TITULO", "*", "A1");
 		assertEquals(1, acBase.calcularCreditos("000.000.000-00", "00000000", "000.000.000-00_1"));
 		
-		acBase.criarAtividadePublicacao("000.000.000-01", "00000001", "PUBLICACAO PERIODICO", 0, "TITULO", "*", "A2");
+		acBase.criarAtividadePublicacao("000.000.000-01", "00000001", "PUBLICACAO_PERIODICO", 0, "TITULO", "*", "A2");
 		assertEquals(4, acBase.calcularCreditos("000.000.000-01", "00000001", "000.000.000-01_1"));
 		
-		acBase.criarAtividadePublicacao("000.000.000-02", "00000002", "PUBLICACAO CONFERENCIA", 0, "TITULO", "*", "A3");
+		acBase.criarAtividadePublicacao("000.000.000-02", "00000002", "PUBLICACAO_CONFERENCIA", 0, "TITULO", "*", "A3");
 		assertEquals(2, acBase.calcularCreditos("000.000.000-02", "00000002", "000.000.000-02_1"));
 	}
 	
