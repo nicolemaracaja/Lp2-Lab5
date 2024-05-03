@@ -45,6 +45,8 @@ public class Estudante extends Usuario implements Comparable<Estudante>{
 		this.matricula = matricula;
 		this.atividades = new HashMap<>();
 		this.atividadeCount = 0;
+		this.relatorios = new ArrayList<>();
+		this.relatorioCount = 0;
 	}
 
 	/**

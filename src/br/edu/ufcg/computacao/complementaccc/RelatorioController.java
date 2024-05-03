@@ -37,7 +37,7 @@ public class RelatorioController {
         estudante.getAtividades().values().forEach(relatorio::adicionarAtividade); // Adicionar todas as atividades ao relatório
 
         estudante.adicionarRelatorio(relatorio);
-        return estudante.getRelatorios().size() - 1; // Retorna o índice do relatório recém-criado
+        return estudante.getRelatorios().size(); // Retorna o índice do relatório recém-criado
     }
 
     /**
@@ -56,7 +56,7 @@ public class RelatorioController {
         estudante.getAtividades().values().forEach(relatorio::adicionarAtividade); // Adicionar todas as atividades ao relatório resumido
 
         estudante.adicionarRelatorio(relatorio);
-        return estudante.getRelatorios().size() - 1; // Retorna o índice do relatório recém-criado
+        return estudante.getRelatorios().size(); // Retorna o índice do relatório recém-criado
     }
 
     /**
@@ -80,7 +80,7 @@ public class RelatorioController {
         });
 
         estudante.adicionarRelatorio(relatorio);
-        return estudante.getRelatorios().size() - 1; // Retorna o índice do relatório recém-criado
+        return estudante.getRelatorios().size(); // Retorna o índice do relatório recém-criado
     }
 
     /**
