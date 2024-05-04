@@ -30,9 +30,16 @@ public class RelatorioDetalhado extends Relatorio{
           .append(", Matrícula: ").append(matricula).append("\n");
 
         // Ordenar por tipo de atividade
-        atividadesRelatorio.sort(Comparator.comparing(Atividade::getTipo));
+        atividadesRelatorio.sort(new ComparadorAtividade());
 
         for (Atividade atividade : atividadesRelatorio) {
+        	if ((atividade.getTipo().equals("ESTAGIO") && atividade.getUnidadeAcumulada() < 300) ||
+        			(atividade.getTipo().equals("PESQUISA_EXTENSAO") && atividade.getUnidadeAcumulada() < 12)) {
+        		sb.append("Tipo: ").append(atividade.getTipo())
+                .append(", Descrição: ").append(atividade.getDescricao())
+                .append(", Créditos: ").append("NÃO ATINGIU AINDA O VALOR MÍNIMO!")
+                .append("\n");
+        	}
             sb.append("Tipo: ").append(atividade.getTipo())
               .append(", Descrição: ").append(atividade.getDescricao())
               .append(", Créditos: ").append(atividade.calcularCreditos())

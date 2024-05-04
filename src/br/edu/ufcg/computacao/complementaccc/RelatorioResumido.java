@@ -32,6 +32,7 @@ public class RelatorioResumido extends Relatorio{
         Map<String, Double> creditosPorTipo = new HashMap<>();
         for (Atividade atividade : atividadesRelatorio) {
             String tipo = atividade.getTipo();
+            
             double creditos = atividade.calcularCreditos();
             creditosPorTipo.merge(tipo, creditos, Double::sum); // Sumarizar créditos por tipo
 

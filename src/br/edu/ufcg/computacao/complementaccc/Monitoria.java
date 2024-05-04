@@ -14,7 +14,12 @@ public class Monitoria extends Atividade {
     /**
      * Máximo de créditos possíveis de conseguir na monitoria.
      */
-    private int maxCreditos = 16;
+    private final double maxCreditos = 16;
+    
+    /**
+     * Quantidade acumulada de créditos na atividade.
+     */
+    private double creditos;
 
     /**
      * Constrói a atividade Monitoria.
@@ -34,11 +39,29 @@ public class Monitoria extends Atividade {
     }
 
     /**
+     * Quantidade máxima de créditos da atividade.
+     * @return maxCreditos Máximo de créditos.
+     */
+    public double getMaxCreditos() {
+		return this.maxCreditos;
+	}
+
+    /**
+     * Pega a quantidade de créditos da atividade.
+     * @return creditos Créditos da atividade.
+     */
+    @Override
+	public double getCreditos() {
+		return this.creditos;
+	}
+
+	/**
      * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 16 créditos.
      */
     @Override
     public double calcularCreditos() {
-        return Math.min(unidadeAcumulada * 4, maxCreditos); //não pode ultrapassar 16 créditos.
+    	this.creditos += unidadeAcumulada * 4;
+        return Math.min(this.creditos, maxCreditos); //não pode ultrapassar 16 créditos.
     }
     
     /**

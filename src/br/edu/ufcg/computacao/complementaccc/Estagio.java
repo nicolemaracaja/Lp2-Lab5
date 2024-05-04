@@ -9,12 +9,12 @@ public class Estagio extends Atividade {
     /**
      * Máximo de créditos possíveis de conseguir no Estágio.
      */
-    private int maxCreditos = 18;
+    private final double maxCreditos = 18;
     
     /**
-     * Disciplina.
+     * Créditos acumulados.
      */
-    private String disciplina;
+    private double creditos;
 
     /**
      * Constrói a atividade Estágio.
@@ -29,15 +29,32 @@ public class Estagio extends Atividade {
         if (disciplina.isBlank() || disciplina.isEmpty()) {
             throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
         }
-        this.disciplina = disciplina;
     }
     
     /**
+     * Pega a quantidade máxima de créditos da atividade.
+     * @return maxCreditos Máxima quantidade de créditos.
+     */
+    public double getMaxCreditos() {
+		return this.maxCreditos;
+	}
+    
+    /**
+     * Pega os créditos acumulados na atividade.
+     * @return creditos Créditos da atividade.
+     */
+    @Override
+	public double getCreditos() {
+		return this.creditos;
+	}
+
+	/**
      * Calcula a quantidade de créditos obtida pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
     public double calcularCreditos() {
-    	return Math.min(unidadeAcumulada / 60, maxCreditos); //1 crédito a cada 60 horas.
+    	this.creditos += unidadeAcumulada / 60;
+    	return Math.min(this.creditos, this.maxCreditos); //1 crédito a cada 60 horas.
     }
      
     /**

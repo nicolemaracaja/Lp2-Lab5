@@ -9,13 +9,13 @@ public class PesquisaExtensao extends Atividade {
     /**
      * Máximo de créditos possíveis de conseguir na atividade de extensão.
      */
-    private int maxCreditos = 18;
+    private final double maxCreditos = 18;
     
     /**
-     * Disciplina.
+     * Créditos da atividade.
      */
-    private String disciplina;
-
+    private double creditos;
+    
     /**
      * Constrói a Pesquisa de Extensão.
      * @param codigo Código da atividade.
@@ -29,15 +29,32 @@ public class PesquisaExtensao extends Atividade {
         if (disciplina.isBlank() || disciplina.isEmpty()) {
         	throw new IllegalArgumentException("DISCIPLINA INVÁLIDA!");
         }
-        this.disciplina = disciplina;
     }
     
     /**
+     * Pega a quantidade máxima de créditos.
+     * @return maxCreditos Máximo de créditos.
+     */
+    public double getMaxCreditos() {
+		return this.maxCreditos;
+	}
+
+    /**
+     * Pega a quantidade acumulada de créditos.
+     * @return creditos Créditos acumulados.
+     */
+    @Override
+	public double getCreditos() {
+		return this.creditos;
+	}
+
+	/**
      * Calcula a quantidade de créditos obtidos pelo usuário, não podendo ultrapassar 18 créditos.
      */
     @Override
     public double calcularCreditos() {
-        return Math.min((unidadeAcumulada / 12) * 10, maxCreditos);
+    	this.creditos += (unidadeAcumulada / 12) * 10;
+        return Math.min(this.creditos, maxCreditos);
     }
     
     /**

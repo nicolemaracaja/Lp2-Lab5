@@ -20,6 +20,16 @@ public class Publicacao extends Atividade {
      * Qualis.
      */
     private String qualis;
+    
+    /**
+     * Quantidade máxima de créditos da atividade;
+     */
+    private final double maxCreditos = 16;
+    
+    /**
+     * Quantidade acumulada de créditos da atividade.
+     */
+    private double creditos;
 
     /**
      * Constrói a Publicação.
@@ -49,25 +59,43 @@ public class Publicacao extends Atividade {
     }
 
     /**
+     * Pega a quantidade máxima de créditos da atividade.
+     * @return maxCreditos Quantidade máxima de créditos.
+     */
+    public double getMaxCreditos() {
+		return maxCreditos;
+	}
+
+    /**
+     * Pega a quantidade de créditos da atividade.
+     * @return creditos Créditos da atividade.
+     */
+    @Override
+	public double getCreditos() {
+		return creditos;
+	}
+
+	/**
      * Calcula a quantidade de créditos acumulados pelo usuário, não podendo ultrapassar 16 créditos.
      */
     @Override
     public double calcularCreditos() {
     	if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A1")) {
-    		return 4;
+    		this.creditos += 4;
     	}else if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A2")) {
-    		return 4;
+    		this.creditos += 4;
     	}else if (tipo.contentEquals("PUBLICACAO_PERIODICO") && qualis.equals("A3")) {
-    		return 3;
+    		this.creditos += 3;
     	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A1")) {
-    		return 1;
+    		this.creditos += 1;
     	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A2")) {
-    		return 3;
+    		this.creditos += 3;
     	}else if (tipo.contentEquals("PUBLICACAO_CONFERENCIA") && qualis.equals("A3")) {
-    		return 2;
+    		this.creditos += 2;
     	}else {
-    		return 1;
+    		this.creditos += 1;
     	}
+    	return Math.min(this.creditos, maxCreditos);
     }
     
     /**

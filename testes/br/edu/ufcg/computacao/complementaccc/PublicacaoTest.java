@@ -16,14 +16,14 @@ class PublicacaoTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		this.publicacaoBase = new Publicacao("PUBLICAÇÃO", 0, "TITULO", "*", "A3");
-		this.publicacaoBase2 = new Publicacao("PUBLICACAO", 0, "TITULO", "*", "A2");
+		this.publicacaoBase = new Publicacao("PUBLICACAOO_PERIODICO", 0, "TITULO", "*", "A3");
+		this.publicacaoBase2 = new Publicacao("PUBLICACAO_CONFERENCIA", 0, "TITULO", "*", "A1");
 	}
 
 	@Test
 	void testCalcularCreditos() {
-		assertEquals(2, publicacaoBase.calcularCreditos());
-		assertEquals(3, publicacaoBase2.calcularCreditos());
+		assertEquals(3, publicacaoBase.calcularCreditos());
+		assertEquals(1, publicacaoBase2.calcularCreditos());
 	}
 
 	@Test

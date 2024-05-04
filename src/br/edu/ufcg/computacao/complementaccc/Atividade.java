@@ -32,6 +32,11 @@ public abstract class Atividade implements Comparable<Atividade>{
 	protected int unidadeAcumulada;
 	
 	/**
+	 * Créditos.
+	 */
+	protected double creditos;
+	
+	/**
 	 * Constrói a atividade.
 	 * @param tipo Tipo da atividade.
 	 * @param descricao Descrição da atividade.
@@ -51,7 +56,7 @@ public abstract class Atividade implements Comparable<Atividade>{
 		this.descricao = "";
 		this.linkComprovacao = "";
 	}
-
+	
 	/**
 	 * Pega o código da atividade.
 	 * @return codigo Código da atividade.
@@ -115,6 +120,12 @@ public abstract class Atividade implements Comparable<Atividade>{
 	 */
 	public abstract double calcularCreditos();
 
+	/**
+	 * Pega a quantidade de créditos acumulados.
+	 * @return creditos Quantidade de créitos.
+	 */
+	public abstract double getCreditos();
+	
 	/**
 	 * Representação textual da atividade.
 	 */

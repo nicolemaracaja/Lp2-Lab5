@@ -98,7 +98,7 @@ public class RelatorioController {
 
         List<Relatorio> relatorios = estudante.getRelatorios();
         if (indexRelatorio < 0 || indexRelatorio >= relatorios.size()) {
-            throw new IndexOutOfBoundsException("Índice do relatório inválido");
+            throw new IndexOutOfBoundsException("ÍNDICE DO RELATÓRIO INVÁLIDO!");
         }
 
         Relatorio relatorio = relatorios.get(indexRelatorio); // Obter relatório pelo índice
